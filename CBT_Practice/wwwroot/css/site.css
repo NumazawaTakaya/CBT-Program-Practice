@@ -1,0 +1,105 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+.main-title {
+    border: solid;
+    border-color: gainsboro;
+    padding: 15px;
+}
+
+.sub-title {
+    border: solid;
+    border-color: gainsboro;
+    padding: 15px;
+    min-height: 400px;
+    margin-bottom: 20px;
+}
+
+    .sub-title .topic {
+        display: block;
+        padding-left: 30px;
+    }
+
+.button-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px 10px 0px;
+}
+
+    .button-section .right-group{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+.btn-link {
+    display: inline-block; /* サイズを持たせる */
+    padding: 4px 8px; /* ボタンの余白 */
+    background-color: #2563eb; /* 青系（例） */
+    color: #fff; /* 文字色 */
+    text-decoration: none; /* 下線を消す */
+    border-radius: 6px; /* 角丸 */
+    font-weight: 600;
+    cursor: pointer; /* マウスカーソル */
+}
+
+    .btn-link:hover {
+        background-color: #1e40af;
+    }
+
+    .btn-link:active {
+        transform: translateY(1px);
+    }
+
+.seven-columns-container{
+    width: 100%;
+    max-width: 1600px;
+}
+
+.table-section{
+    width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    border: 3px solid #7facc9;
+    width: 100%;
+}
+
+thead th {
+    border-bottom: 3px solid #7facc9;
+}
+
+tbody td{
+    border-bottom: 1px dashed #bdbdbd;
+}

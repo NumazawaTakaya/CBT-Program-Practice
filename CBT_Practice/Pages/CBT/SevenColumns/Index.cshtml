@@ -1,0 +1,50 @@
+﻿@page
+@model CBT_Practice.Pages.CBT.SevenColumns.IndexModel
+@{
+    ViewData["Title"] = "７つのコラム 一覧";
+}
+
+<div class="main-title">
+    <h1>７つのコラム　一覧</h1>
+</div>
+
+<div class="seven-columns-container">
+    <div class="button-section">
+        <a asp-page="Step01_Situation" class="btn-link">新規作成</a>
+
+        <div class="right-group">
+            <span class="list-counter">３０件 ／ ３１件</span>
+            <button>次へ</button>
+        </div>
+    </div>
+
+    <div class="table-section">
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>題名</th>
+                    <th>自動思考</th>
+                    <th>主な感情</th>
+                    <th>発生日</th>
+                    <th>状況</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(int i = 0; i < 30; i++){
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>テスト@(i + 1)</td>
+                        <td>テスト@(i + 1)</td>
+                        <td>テスト@(i + 1)</td>
+                        <td>テスト@(i + 1)</td>
+                        <td>テスト@(i + 1)</td>
+                        <td>@if (i % 2 == 0) { <button>確認</button> }</td>
+                        <td><button>編集</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

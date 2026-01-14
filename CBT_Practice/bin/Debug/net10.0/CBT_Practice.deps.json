@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "CBT_Practice/1.0.0": {
+        "runtime": {
+          "CBT_Practice.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CBT_Practice/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
