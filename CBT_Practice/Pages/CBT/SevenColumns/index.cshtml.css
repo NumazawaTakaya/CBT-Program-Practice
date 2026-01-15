@@ -1,0 +1,55 @@
+﻿/* 7つのコラム 一覧ページ 全体の幅 */
+.seven-columns-container {
+    width: 100%;
+    max-width: 1600px;
+}
+
+/* 7つのコラム 一覧ページ 表の幅*/
+.table-section {
+    width: 100%;
+}
+
+/* 7つのコラム 一覧ページ 表の形式*/
+.seven-columns-container table {
+    border-collapse: collapse;
+    border: 3px solid gainsboro;
+    width: 100%;
+}
+
+.seven-columns-container td, th {
+    border-left: 3px dotted gainsboro;
+}
+
+.seven-columns-container thead th {
+    border-bottom: 3px solid gainsboro;
+    text-align: center;
+}
+
+.seven-columns-container tbody td {
+    border-bottom: 1px dashed #bdbdbd;
+}
+
+    /* No.列のフォーマット*/
+    .seven-columns-container tbody td:nth-child(1) {
+        text-align: center;
+        width: 50px;
+    }
+
+    /* 状況列のフォーマット*/
+    .seven-columns-container tbody td:nth-last-child(3) {
+        text-align: center;
+        width: 75px;
+    }
+
+    /* 編集ボタンのフォーマット*/
+    .seven-columns-container tbody td:nth-last-child(2) {
+        text-align: center;
+        width: 60px;
+    }
+
+    /* 確認ボタンのフォーマット*/
+    .seven-columns-container tbody td:nth-last-child(1) {
+        text-align: center;
+        width: 60px;
+        border-left: 2px dotted gainsboro;
+    }

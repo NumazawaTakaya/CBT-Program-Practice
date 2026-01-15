@@ -6,4 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Pages\CBT\SevenColumns\Step01_SituationModel.cshtml.css" />
+    <None Remove="Pages\index.cshtml.css" />
+    <None Remove="Pages\index.css" />
+  </ItemGroup>
+
 </Project>

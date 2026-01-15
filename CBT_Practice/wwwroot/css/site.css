@@ -1,3 +1,4 @@
+/* テンプレートによる自動作成　ここから */
 html {
   font-size: 14px;
 }
@@ -19,6 +20,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -29,16 +31,17 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+/* テンプレートによる自動作成　ここまで */
 
+/* 表題用 */
 .main-title {
-    border: solid;
-    border-color: gainsboro;
+    border: 3px solid gainsboro;
     padding: 15px;
 }
 
+/* サブトピック */
 .sub-title {
-    border: solid;
-    border-color: gainsboro;
+    border: 3px solid gainsboro;
     padding: 15px;
     min-height: 400px;
     margin-bottom: 20px;
@@ -49,6 +52,14 @@ body {
         padding-left: 30px;
     }
 
+/* 基本的な画面の構成 */
+.main-contents {
+    border: 3px solid gainsboro;
+    min-height: 1000px;
+    margin-top: 20px;
+}
+
+/* 基本的なボタン配置 */
 .button-section {
     display: flex;
     align-items: center;
@@ -62,6 +73,8 @@ body {
         gap: 12px;
     }
 
+
+/* ボタンの見た目 */
 .btn-link {
     display: inline-block; /* サイズを持たせる */
     padding: 4px 8px; /* ボタンの余白 */
@@ -81,25 +94,14 @@ body {
         transform: translateY(1px);
     }
 
-.seven-columns-container{
-    width: 100%;
-    max-width: 1600px;
+
+/* 説明文のフォーマット */
+.main-caption {
+    font-size: 30px;
+    padding: 10px 0px 0px 10px;
 }
 
-.table-section{
-    width: 100%;
-}
-
-table {
-    border-collapse: collapse;
-    border: 3px solid #7facc9;
-    width: 100%;
-}
-
-thead th {
-    border-bottom: 3px solid #7facc9;
-}
-
-tbody td{
-    border-bottom: 1px dashed #bdbdbd;
+.sub-caption {
+    font-size: 20px;
+    padding: 0px 0px 10px 10px;
 }

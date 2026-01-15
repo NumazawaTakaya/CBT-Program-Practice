@@ -1,3 +1,66 @@
+/* /Pages/CBT/SevenColumns/index.cshtml.rz.scp.css */
+/* 7つのコラム 一覧ページ 全体の幅 */
+.seven-columns-container[b-d7pp0tvkws] {
+    width: 100%;
+    max-width: 1600px;
+}
+
+/* 7つのコラム 一覧ページ 表の幅*/
+.table-section[b-d7pp0tvkws] {
+    width: 100%;
+}
+
+/* 7つのコラム 一覧ページ 表の形式*/
+.seven-columns-container table[b-d7pp0tvkws] {
+    border-collapse: collapse;
+    border: 3px solid gainsboro;
+    width: 100%;
+}
+
+.seven-columns-container td[b-d7pp0tvkws], th[b-d7pp0tvkws] {
+    border-left: 3px dotted gainsboro;
+}
+
+.seven-columns-container thead th[b-d7pp0tvkws] {
+    border-bottom: 3px solid gainsboro;
+    text-align: center;
+}
+
+.seven-columns-container tbody td[b-d7pp0tvkws] {
+    border-bottom: 1px dashed #bdbdbd;
+}
+
+    /* No.列のフォーマット*/
+    .seven-columns-container tbody td:nth-child(1)[b-d7pp0tvkws] {
+        text-align: center;
+        width: 50px;
+    }
+
+    /* 状況列のフォーマット*/
+    .seven-columns-container tbody td:nth-last-child(3)[b-d7pp0tvkws] {
+        text-align: center;
+        width: 75px;
+    }
+
+    /* 編集ボタンのフォーマット*/
+    .seven-columns-container tbody td:nth-last-child(2)[b-d7pp0tvkws] {
+        text-align: center;
+        width: 60px;
+    }
+
+    /* 確認ボタンのフォーマット*/
+    .seven-columns-container tbody td:nth-last-child(1)[b-d7pp0tvkws] {
+        text-align: center;
+        width: 60px;
+        border-left: 2px dotted gainsboro;
+    }
+/* /Pages/CBT/SevenColumns/Step01_Situation.cshtml.rz.scp.css */
+.situation[b-qx61ut44qz] {
+    border: 2px solid gainsboro;
+    margin: 10px;
+    height: 50px;
+
+}
 /* /Pages/Shared/_Layout.cshtml.rz.scp.css */
 /* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
