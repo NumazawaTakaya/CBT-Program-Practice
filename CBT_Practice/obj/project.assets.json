@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\super\\OneDrive\\Desktop\\課題対応用\\CBT Practice\\作業用\\CBT-Program-Plactice2\\CBT_Practice\\CBT_Practice.csproj",
+      "projectUniqueName": "C:\\Users\\super\\OneDrive\\Desktop\\課題対応用\\CBT Practice\\作業用\\CBT-Program-Practice\\CBT_Practice\\CBT_Practice.csproj",
       "projectName": "CBT_Practice",
-      "projectPath": "C:\\Users\\super\\OneDrive\\Desktop\\課題対応用\\CBT Practice\\作業用\\CBT-Program-Plactice2\\CBT_Practice\\CBT_Practice.csproj",
+      "projectPath": "C:\\Users\\super\\OneDrive\\Desktop\\課題対応用\\CBT Practice\\作業用\\CBT-Program-Practice\\CBT_Practice\\CBT_Practice.csproj",
       "packagesPath": "C:\\Users\\super\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\super\\OneDrive\\Desktop\\課題対応用\\CBT Practice\\作業用\\CBT-Program-Plactice2\\CBT_Practice\\obj\\",
+      "outputPath": "C:\\Users\\super\\OneDrive\\Desktop\\課題対応用\\CBT Practice\\作業用\\CBT-Program-Practice\\CBT_Practice\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
