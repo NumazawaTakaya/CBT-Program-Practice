@@ -5,7 +5,11 @@
 }
 
 <div class="main-title">
-    <h1>７つのコラム　新規作成</h1>
+    <h1>７つのコラム　自動思考の発生状況</h1>
+</div>
+
+<div class="button-section">
+    <a asp-page="index" class="btn-link">一覧に戻る</a>
 </div>
 
 <div class="main-contents">
@@ -16,42 +20,64 @@
     </div>
     
     <div class="situation">
-        <label>いつ　　　：</label>
-        <input type="date" value="" />
-        <span>の</span>
-        <input type="text">
+        <div class="label">いつ&emsp;&emsp;&emsp;&emsp;&emsp;</div>
+        <div class="colon">：</div>
+        <div class="field">
+            <input type="date" class="two-component" value="">
+            <label class="conjunctions">の</label>
+            <input type="text" class="two-component">
+        </div>
     </div>
 
     <div class="situation">
-        <label>どこで　　　：</label>
-        <input type="text">
+        <div class="label">どこで&emsp;&emsp;&emsp;&emsp;</div>
+        <div class="colon">：</div>
+        <div class="field">
+            <input type="text" class="one-component">
+        </div>
     </div>
 
     <div class="situation">
-        <label>だれが　　　：</label>
-        <input type="text">
-        <label>が</label>
-        <input type="text">
-        <label>に</label>
+        <div class="label">だれが&emsp;&emsp;&emsp;&emsp;</div>
+        <div class="colon">：</div>
+        <div class="field">
+            <input type="text" class="two-component">
+            <label class="conjunctions">が</label>
+            <input type="text" class="two-component">
+            <label class="conjunctions">に</label>
+        </div>
     </div>
 
     <div class="situation">
-        <label>なにを　　　：</label>
-        <input type="text">
+        <div class="label">なにを&emsp;&emsp;&emsp;&emsp;</div>
+        <div class="colon">：</div>
+        <div class="field">
+            <input type="text" class="one-component">
+        </div>
     </div>
 
     <div class="situation">
-        <label>どのように：</label>
-        <input type="text">
+        <div class="label">どのように&emsp;&emsp;</div>
+        <div class="colon">：</div>
+        <div class="field">
+            <input type="text" class="one-component">
+        </div>
     </div>
 
     <br>
 
-    <div class="situation">
-        <label>その他の背景情報：</label>
-        <br>
-        <input type="text">
+    <div class="other-situation">
+        <div class="label">その他の背景情報：</div>
+        <input type="text" class="one-component">
     </div>
 
+
+    <div class="button-section">
+        <button>一時保存</button>
+
+        <div class="right-group">
+            <a asp-page="Step02_AutoToughts" class="btn-link">次へ</a>
+        </div>
+    </div>
 </div>
 
