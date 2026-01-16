@@ -16,6 +16,11 @@
     width: 100%;
 }
 
+/* 奇数列の背景色 */
+.seven-columns-container tbody tr:nth-child(even) {
+    background-color: #F5FDFE;
+}
+
 .seven-columns-container td, th {
     border-left: 3px dotted gainsboro;
 }
@@ -28,6 +33,7 @@
 .seven-columns-container tbody td {
     border-bottom: 1px dashed #bdbdbd;
 }
+
 
     /* No.列のフォーマット*/
     .seven-columns-container tbody td:nth-child(1) {

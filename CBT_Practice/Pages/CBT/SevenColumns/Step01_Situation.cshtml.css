@@ -1,6 +1,48 @@
-﻿.situation {
+﻿/* 基本情報のデザイン */
+.situation {
+    display: flex;
+    border: 2px solid gainsboro;
+    margin: 6px;
+    padding: 5px 5px 5px 5px;
+    height: 55px;
+    font-size:1.5em;
+    align-items: center;
+}
+
+.label {
+    text-align: justify;
+}
+
+.colon {
+    text-align: center;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.one-component {
+    min-width: 700px;
+}
+
+.two-component{
+    min-width: 330px;
+}
+
+/* その他背景情報のデザイン */
+.other-situation {
     border: 2px solid gainsboro;
     margin: 10px;
-    height: 50px;
-
+    min-height: 450px;
+    font-size: 1.5em;
+    padding: 5px 5px 5px 5px;
 }
+
+    .other-situation .one-component{
+        min-height: 450px;
+        min-width: 900px;
+        vertical-align: top;
+        margin: 5px 5px 5px 3px;
+    }

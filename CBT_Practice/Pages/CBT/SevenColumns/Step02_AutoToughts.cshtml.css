@@ -1,0 +1,20 @@
+﻿.auto-thought-section{
+    margin: 10px;
+}
+
+.auto-thought-area{
+    margin-bottom: 10px;
+}
+
+.emotion {
+    margin: 2px;
+}
+
+.emotion-point {
+    border: none;
+    border-bottom: 1.5px dotted;
+}
+
+.add-btn{
+    margin: 2px;
+}

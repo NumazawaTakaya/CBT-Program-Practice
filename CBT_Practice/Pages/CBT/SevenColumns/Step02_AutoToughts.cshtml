@@ -1,0 +1,61 @@
+﻿@page
+@model CBT_Practice.Pages.CBT.SevenColumns.Step02_AutoToughtsModel
+@{
+    ViewData["Title"] = "７つのコラム 新規作成";
+}
+
+<div class="main-title">
+    <h1>７つのコラム　自動思考の内容</h1>
+</div>
+
+
+<div class="button-section">
+    <a asp-page="index" class="btn-link">一覧に戻る</a>
+</div>
+
+<div class="main-contents">
+    <div class="caption">
+        <label class="main-caption">湧いてきた自動思考とその時の感情を整理しよう</label>
+        <br>
+        <label class="sub-caption">(メインで取り扱いたい自動思考にチェック)</label>
+    </div>
+
+    <div class="auto-thought-section">
+        <div class="auto-thought-area">
+            <input type="radio" checked>
+            <label>自動思考１</label>
+            <div class="auto-thought">
+                <input type="text" value="○○と思われたかも">
+            </div>
+        </div>
+        <div class="emotion-section">
+            <label>その時の感情</label>
+            <template id="emotion-template">
+            <div class="emotion-area">
+                <input type="text" class="emotion">
+                <input type="text" class="emotion-point">
+            </div>
+            </template>
+            <div class="emotion-area">
+                <input type="text" class="emotion">
+                <input type="text" class="emotion-point">
+            </div>
+            <div class="emotion-area">
+                <input type="text" class="emotion">
+                <input type="text" class="emotion-point">
+            </div>
+        </div>
+        <div class="add-btn">
+            <button id="emotion-btn">追加</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const addArea = $('.emotion-section');
+    const emotionButton = $('#emotion-btn');
+    emotionButton.addEventListener('click', () => {
+        
+    });
+
+</script>
