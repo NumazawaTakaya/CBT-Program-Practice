@@ -1,0 +1,68 @@
+﻿@page
+@model CBT_Practice.Pages.CBT.SevenColumns.Step03_EvidenceModel
+@{
+    ViewData["Title"] = "７つのコラム 新規作成";
+}
+
+<div class="main-title">
+    <h1>７つのコラム　自動思考の根拠と中核信念</h1>
+</div>
+
+<div class="button-section">
+    <a asp-page="index" class="btn-link">一覧に戻る</a>
+</div>
+
+
+<div class="main-contents">
+    <div class="caption">
+        <label class="main-caption">自動思考の根拠と、その基になっている中核信念を探ろう</label>
+    </div>
+
+    <div>
+        <div class="auto-thought-area">
+            <label class="title">・自動思考</label>
+            <div class="auto-thought">
+                <input type="text" disabled value="○○と思われたかも">
+            </div>
+        </div>
+        <div class="arrow-block">
+            <div class="arrow"></div>
+            <div class="arrow-caption"><label>そう思った根拠は？</label></div>
+        </div>
+        <div class="auto-thought-evidence">
+            <label class="title">・自動思考の根拠</label>
+            <div>
+                <input type="text"/>
+            </div>
+        </div>
+        <div class="arrow-block">
+            <div class="arrow"></div>
+            <div class="arrow-caption"><label>もっと極端に言えば</label></div>
+        </div>
+        <div class="auto-thought-evidence">
+            <label class="title">・中間信念</label>
+            <div>
+                <input type="text" />
+            </div>
+        </div>
+        <div class="arrow-block">
+            <div class="arrow"></div>
+            <div class="arrow-caption"><label>断定系にすると</label></div>
+        </div>
+        <div class="auto-thought-evidence">
+            <label class="title">・中核信念</label>
+            <div>
+                <input type="text" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="button-section">
+    <a asp-page="Step02_AutoToughts" class="btn-link">前の画面に戻る</a>
+    <button>一時保存</button>
+
+    <div class="right-group">
+        <a asp-page="Step04_CounterEvidence" class="btn-link">次へ</a>
+    </div>
+</div>

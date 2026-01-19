@@ -22,20 +22,18 @@
 
     <div class="auto-thought-section">
         <div class="auto-thought-area">
-            <input type="radio" checked>
-            <label>自動思考１</label>
+            <input type="radio" name="mainThought" checked>
+            <label class="title">自動思考1</label>
             <div class="auto-thought">
                 <input type="text" value="○○と思われたかも">
             </div>
         </div>
         <div class="emotion-section">
             <label>その時の感情</label>
-            <template id="emotion-template">
             <div class="emotion-area">
                 <input type="text" class="emotion">
                 <input type="text" class="emotion-point">
             </div>
-            </template>
             <div class="emotion-area">
                 <input type="text" class="emotion">
                 <input type="text" class="emotion-point">
@@ -45,17 +43,145 @@
                 <input type="text" class="emotion-point">
             </div>
         </div>
-        <div class="add-btn">
-            <button id="emotion-btn">追加</button>
+        <div class="emotion-btn-area">
+            <button class="emotion-add-btn">感情の追加</button>
+            <button class="emotion-del-btn">感情の削除</button>
         </div>
+    </div>
+
+    <div class="added-section">
+        <div class="auto-thought-section">
+            <div class="auto-thought-area">
+                <input type="radio" name="mainThought">
+                <label class="title">自動思考2</label>
+                <div class="auto-thought">
+                    <input type="text" value="">
+                </div>
+            </div>
+            <div class="emotion-section">
+                <label>その時の感情</label>
+                <div class="emotion-area">
+                    <input type="text" class="emotion">
+                    <input type="text" class="emotion-point">
+                </div>
+                <div class="emotion-area">
+                    <input type="text" class="emotion">
+                    <input type="text" class="emotion-point">
+                </div>
+                <div class="emotion-area">
+                    <input type="text" class="emotion">
+                    <input type="text" class="emotion-point">
+                </div>
+            </div>
+            <div class="emotion-btn-area">
+                @* TODO: emotion-areaの最下部と常に同じ行に表示させたい *@
+                <button class="emotion-add-btn">感情の追加</button>
+                <button class="emotion-del-btn">感情の削除</button>
+            </div>
+        </div>
+        <div class="section-btn-area">
+            <button class="section-add-btn">自動思考の追加</button>
+            <button class="section-del-btn">自動思考の削除</button>
+        </div>
+    </div>
+
+</div>
+@* TODO: 下部に配置するボタンのレイアウト調整 *@ 
+<div class="button-section">
+    <a asp-page="Step01_Situation" class="btn-link">前の画面に戻る</a>
+    <button>一時保存</button>
+
+    <div class="right-group">
+        <a asp-page="Step03_Evidence" class="btn-link">次へ</a>
     </div>
 </div>
 
 <script>
-    const addArea = $('.emotion-section');
-    const emotionButton = $('#emotion-btn');
-    emotionButton.addEventListener('click', () => {
-        
+
+    // ロード時処理
+    $(function(){
+
     });
+
+    /* ボタン押下時の領域に対して感情エリアを追加／削除 */
+    // 感情追加ボタン押下時
+    $(document).on('click', '.emotion-add-btn', function(){
+        const targetContainer = $(this).closest('.auto-thought-section');
+        const emotionSection = targetContainer.find('.emotion-section');
+        const originalArea = emotionSection.find('.emotion-area').first();
+        
+        // 初期化して複製
+        const cloneArea = originalArea.clone();
+        cloneArea.find('input').val('');
+        emotionSection.append(cloneArea);
+    });
+
+    // 感情削除ボタン押下時
+    $(document).on('click', '.emotion-del-btn', function(){
+        const targetContainer = $(this).closest('.auto-thought-section');
+        const emotionSection = targetContainer.find('.emotion-section');
+        const originalArea = emotionSection.find('.emotion-area');
+
+        // 最低３件は残すよう削除
+        if(originalArea.length <= 3) return;
+        originalArea.last().remove();
+    });
+
+    // 自動思考セクション追加ボタン押下時
+    $(document).on('click', '.section-add-btn', function(){
+    
+        // 追加先の領域を定義
+        const addedSection = $(this).closest('.added-section');
+        
+        // 複製したいdiv要素を定義
+        const template = addedSection.find('.auto-thought-section').first();
+        const cloneSection = template.clone();
+
+        // 入力初期化
+        cloneSection.find('input[type="text"]').val('');
+        cloneSection.find('input[type="radio"]').prop('checked', false);
+
+        // 感情は3件にリセット
+        const emotionSection = cloneSection.find('.emotion-section');
+        emotionSection.find('.emotion-area').slice(3).remove();
+
+        // セクションの追加／削除ボタンを配置
+        addedSection.find('.section-btn-area').before(cloneSection);
+    });
+
+    // 自動思考セクション削除ボタン押下時
+    $(document).on('click', '.section-del-btn', function(){
+
+        // 最下部の自動思考セクションを定義
+        const targetSection = $(this).closest('.added-section').find('.auto-thought-section');
+        
+        // 最低１件は残すよう削除
+        if(targetSection.length <= 1) return;
+        targetSection.last().remove();
+    });
+
+    /* 動的な削除ボタン作成前
+    // 感情追加ボタン押下時
+    const emotionAddButton = $('#emotion-add-btn');
+    emotionAddButton.on('click', () => {
+        const addedSection = $('.emotion-section');
+        const originalArea = $('.emotion-area').first();
+        const cloneArea = originalArea.clone(true);
+        addedSection.append(cloneArea);
+    });
+
+    // 感情削除ボタン押下時
+    const emotionDelButton = $('#emotion-del-btn');
+    emotionDelButton.on('click', () => {
+        const deledSection = $('.emotion-section');
+        const emotionArea = $('.emotion-area'); 
+
+        // ３件以上存在する場合にのみ削除実施
+        if(emotionArea.length > 3){
+            const delTarget = deledSection.children('.emotion-area').last();
+            delTarget.remove();
+        }
+    });
+    */
 
 </script>
