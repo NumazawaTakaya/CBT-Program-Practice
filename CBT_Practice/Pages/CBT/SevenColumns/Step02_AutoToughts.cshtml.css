@@ -1,5 +1,8 @@
 ﻿.auto-thought-section{
-    margin: 10px;
+    margin: 10px 0px 20px 10px; 
+    border-bottom: 2px dotted;
+    width: 500px;
+    padding: 10px;
 }
 
 .auto-thought-area{
@@ -15,6 +18,10 @@
     border-bottom: 1.5px dotted;
 }
 
-.add-btn{
-    margin: 2px;
+.emotion-btn-area {
+    margin: 5px;
+}
+
+.section-btn-area{
+    margin: 10px;
 }

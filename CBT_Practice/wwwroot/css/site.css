@@ -52,6 +52,11 @@ body {
         padding-left: 30px;
     }
 
+/* 小見出しラベル */
+label.title {
+    font-weight: bold;
+}
+
 /* 基本的な画面の構成 */
 .main-contents {
     border: 3px solid gainsboro;
