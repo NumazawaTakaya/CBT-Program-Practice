@@ -159,29 +159,4 @@
         if(targetSection.length <= 1) return;
         targetSection.last().remove();
     });
-
-    /* 動的な削除ボタン作成前
-    // 感情追加ボタン押下時
-    const emotionAddButton = $('#emotion-add-btn');
-    emotionAddButton.on('click', () => {
-        const addedSection = $('.emotion-section');
-        const originalArea = $('.emotion-area').first();
-        const cloneArea = originalArea.clone(true);
-        addedSection.append(cloneArea);
-    });
-
-    // 感情削除ボタン押下時
-    const emotionDelButton = $('#emotion-del-btn');
-    emotionDelButton.on('click', () => {
-        const deledSection = $('.emotion-section');
-        const emotionArea = $('.emotion-area'); 
-
-        // ３件以上存在する場合にのみ削除実施
-        if(emotionArea.length > 3){
-            const delTarget = deledSection.children('.emotion-area').last();
-            delTarget.remove();
-        }
-    });
-    */
-
 </script>
