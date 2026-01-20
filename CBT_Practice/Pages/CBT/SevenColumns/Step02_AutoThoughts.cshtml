@@ -1,7 +1,14 @@
 ﻿@page
-@model CBT_Practice.Pages.CBT.SevenColumns.Step02_AutoToughtsModel
+@model CBT_Practice.Pages.CBT.SevenColumns.Step02_AutoThoughtsModel
 @{
+    // タブ名の定義
     ViewData["Title"] = "７つのコラム 新規作成";
+
+    /* その他の初期設定値 */
+    // 感情欄の初期表示数
+    var defaultLength = 3;
+    // 自動思考のインデックス
+    var autoThoughtIndex = 0;
 }
 
 <div class="main-title">
@@ -20,28 +27,23 @@
         <label class="sub-caption">(メインで取り扱いたい自動思考にチェック)</label>
     </div>
 
-    <div class="auto-thought-section">
+    <div class="auto-thought-section" data-thought-index="@autoThoughtIndex">
         <div class="auto-thought-area">
             <input type="radio" name="mainThought" checked>
-            <label class="title">自動思考1</label>
+            <label class="title">自動思考@(autoThoughtIndex)</label>
             <div class="auto-thought">
                 <input type="text" value="○○と思われたかも">
             </div>
         </div>
         <div class="emotion-section">
             <label>その時の感情</label>
-            <div class="emotion-area">
-                <input type="text" class="emotion">
-                <input type="text" class="emotion-point">
-            </div>
-            <div class="emotion-area">
-                <input type="text" class="emotion">
-                <input type="text" class="emotion-point">
-            </div>
-            <div class="emotion-area">
-                <input type="text" class="emotion">
-                <input type="text" class="emotion-point">
-            </div>
+            @for(int i = 0; i < defaultLength; i++)
+            {
+                <div class="emotion-area">
+                    <input name="emotion@(i + 1)" type="text" class="emotion">
+                    <input name="emotion-point@(i + 1)" type="text" class="emotion-point">
+                </div>
+            }
         </div>
         <div class="emotion-btn-area">
             <button class="emotion-add-btn">感情の追加</button>
@@ -53,25 +55,20 @@
         <div class="auto-thought-section">
             <div class="auto-thought-area">
                 <input type="radio" name="mainThought">
-                <label class="title">自動思考2</label>
+                <label class="title">自動思考@(autoThoughtIndex++)</label>
                 <div class="auto-thought">
                     <input type="text" value="">
                 </div>
             </div>
             <div class="emotion-section">
                 <label>その時の感情</label>
-                <div class="emotion-area">
-                    <input type="text" class="emotion">
-                    <input type="text" class="emotion-point">
-                </div>
-                <div class="emotion-area">
-                    <input type="text" class="emotion">
-                    <input type="text" class="emotion-point">
-                </div>
-                <div class="emotion-area">
-                    <input type="text" class="emotion">
-                    <input type="text" class="emotion-point">
-                </div>
+                @for (int i = 0; i < defaultLength; i++)
+                {
+                    <div class="emotion-area">
+                        <input id="emotion@(i + 1)" type="text" class="emotion">
+                        <input id="emotion-point@(i + 1)" type="text" class="emotion-point">
+                    </div>
+                }
             </div>
             <div class="emotion-btn-area">
                 @* TODO: emotion-areaの最下部と常に同じ行に表示させたい *@
@@ -113,6 +110,7 @@
         // 初期化して複製
         const cloneArea = originalArea.clone();
         cloneArea.find('input').val('');
+        cloneArea.id
         emotionSection.append(cloneArea);
     });
 
