@@ -1,4 +1,5 @@
-﻿.auto-thought-section{
+﻿/* 自動思考入力部 */
+.auto-thought-section{
     margin: 10px 0px 20px 10px; 
     border-bottom: 2px dotted;
     width: 500px;
@@ -9,6 +10,7 @@
     margin-bottom: 10px;
 }
 
+/* 感情入力部 */
 .emotion {
     margin: 2px;
 }
@@ -22,6 +24,7 @@
     margin: 5px;
 }
 
+/* 自動思考の追加／削除ボタン表示部 */
 .section-btn-area{
     margin: 10px;
 }

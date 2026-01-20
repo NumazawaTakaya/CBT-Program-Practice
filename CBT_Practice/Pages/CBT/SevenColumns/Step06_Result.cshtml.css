@@ -1,0 +1,93 @@
+﻿/* テキストボックス全体 */
+input[type="text"] {
+    border: 1px solid;
+    width: 500px;
+    height: 30px;
+}
+
+/* 状況部 */
+.situation-area{
+    margin:20px 0px 5px 10px;
+}
+
+/* 接続ラベル部 */
+.conjunction-area {
+    margin: 10px;
+}
+
+/* 自動思考部 */
+.auto-thought-area {
+    margin: 10px 0px 5px 10px;
+}
+
+/* 適応的思考部 */
+.adaptive-thought-area {
+    margin: 10px 0px 5px 10px;
+}
+
+/* その他詳細部 */
+.detail-section {
+    margin: 20px 0px 5px 10px;
+}
+
+    .detail-section > div {
+        margin-bottom: 10px;
+        width: 600px;
+    }
+
+/* スライドトグル全体 */
+.toggle-button {
+    width: 700px;
+    text-align: left;
+}
+
+/* トグルの内容 */
+.toggle-contents {
+    padding: 10px;
+    width: 700px;
+    box-sizing: border-box;
+}
+
+/* 感情の遷移部 */
+.emotion-section .toggle-contents{
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+    .emotion-section input[type="text"] {
+        width: 150px;
+    }
+
+    .emotion-section .border-line {
+        width: 1px;
+        align-self: stretch;
+        border-left: 1px dotted #bbb;
+    }
+
+    .emotion-section .emotion-point {
+        border: none;
+        border-bottom: 1.5px dotted;
+    }
+
+
+/* 矢印まわり */
+div.arrow-block {
+    display: flex;
+    margin: 15px 0px 10px 10px;
+}
+
+div.arrow {
+    display: inline-block;
+    width: 43.5px;
+    height: 75px;
+    background: #AFDFE4;
+    clip-path: polygon(0 63.2%, 31% 63.2%, 31% 0, 69% 0, 69% 63.2%, 100% 63.2%, 50% 100%);
+}
+
+.arrow-caption {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.85em;
+}

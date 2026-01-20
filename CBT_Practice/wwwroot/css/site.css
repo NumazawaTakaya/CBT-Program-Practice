@@ -79,7 +79,6 @@ label.title {
         gap: 12px;
     }
 
-
 /* ボタンの見た目 */
 .btn-link {
     display: inline-block; /* サイズを持たせる */
@@ -101,7 +100,6 @@ label.title {
     .btn-link:active {
         transform: translateY(1px);
     }
-
 
 /* 説明文のフォーマット */
 .main-caption {

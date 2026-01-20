@@ -1,0 +1,77 @@
+﻿input[type="text"] {
+    border: 1px solid;
+    width: 500px;
+    height: 30px;
+    margin-left:10px;
+}
+
+/* 矢印 入力部 */
+.arrow-block {
+    display: flex;
+    margin: 25px 0px 40px 10px;
+    height: 50px;
+}
+
+.arrow {
+    display: inline-block;
+    width: 43.5px;
+    height: 75px;
+    background: #AFDFE4;
+    clip-path: polygon(0 63.2%, 31% 63.2%, 31% 0, 69% 0, 69% 63.2%, 100% 63.2%, 50% 100%);
+}
+
+/* 自動思考 入力部 */
+.auto-thought-section {
+    margin: 10px 0px 0px 10px;
+}
+
+
+/* 反証 入力部 */
+.counter-evidence-section {
+    margin: 10px;
+}
+
+    .counter-evidence-area > input {
+        height: 400px;
+    }
+
+/* 適応的思考 入力部 */
+.adaptive-thoughts-section {
+    margin: 10px 0px 20px 10px;
+}
+
+.before-thought-area {
+    margin: 0px 0px 5px 0px;
+}
+
+.conjunction-area {
+    margin: 5px 0px 5px 0px;
+}
+
+.conjunction-area > select{
+    margin-left: 10px;
+}
+
+.after-thought-area {
+    margin: 5px 0px 5px 0px;
+}
+
+/* 感情 入力部 */
+.emotion-section {
+    margin: 10px 0px 20px 10px;
+}
+
+.emotion-btn-area {
+    margin: 5px;
+}
+
+input.emotion {
+    margin: 0px 5px 5px 10px;
+    width: 200px;
+}
+
+input.emotion-point {
+    border: none;
+    border-bottom: 1.5px dotted;
+    width: 200px;
+}

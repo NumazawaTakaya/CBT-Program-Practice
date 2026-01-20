@@ -1,0 +1,157 @@
+﻿@page
+@model CBT_Practice.Pages.CBT.SevenColumns.Step06_ResultModel
+@{
+    ViewData["Title"] = "７つのコラム 新規作成";
+}
+
+<div class="main-title">
+    <h1>７つのコラム　適応的思考</h1>
+</div>
+
+<div class="button-section">
+    <a asp-page="index" class="btn-link">一覧に戻る</a>
+</div>
+
+<div class="main-contents">
+    <div class="caption">
+        <label class="main-caption">まとめ</label>
+    </div>
+
+    <div class="situation-area">
+        <input type="text" disabled/>
+    </div>
+
+    <div class="conjunction-area">
+        <label>の際に</label>
+    </div>
+    
+    <div class="auto-thought-area">
+        <input type="text" disabled />
+    </div>
+
+    <div class="conjunction-area">
+        <label>の自動思考が湧いて出たが</label>
+    </div>
+
+    <div class="adaptive-thought-area">
+        <input type="text" disabled />
+    </div>
+
+    <div class="conjunction-area">
+        <label>のようにバランスをとった</label>
+    </div>
+
+    <div class="detail-section">
+        <div class="emotion-section">
+            <button 
+                class="toggle-button" 
+                data-target="#emotion-section"
+                data-open-text ="▽ 感情の遷移"
+                data-close-text="△ 感情の遷移">
+                △ 感情の遷移
+            </button>
+            <div id="emotion-section" class="toggle-contents" style="display:visible">
+                <div class="before-emotion">
+                    <label class="title">・当時の感情</label>
+                    <div class="emotion-area">
+                        <input type="text" class="emotion" disabled>
+                        <input type="text" class="emotion-point" disabled>
+                    </div>
+                    <div class="emotion-area">
+                        <input type="text" class="emotion" disabled>
+                        <input type="text" class="emotion-point" disabled>
+                    </div>
+                    <div class="emotion-area">
+                        <input type="text" class="emotion" disabled>
+                        <input type="text" class="emotion-point" disabled>
+                    </div>
+                </div>
+                <div class="border-line"></div>
+                <div class="after-emotion">
+                    <label class="title">・対応後の感情</label>
+                    <div class="emotion-area">
+                        <input type="text" class="emotion" disabled>
+                        <input type="text" class="emotion-point" disabled>
+                    </div>
+                    <div class="emotion-area">
+                        <input type="text" class="emotion" disabled>
+                        <input type="text" class="emotion-point" disabled>
+                    </div>
+                    <div class="emotion-area">
+                        <input type="text" class="emotion" disabled>
+                        <input type="text" class="emotion-point" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="evidence-section">
+            <button class="toggle-button"
+                    data-target="#evidence-area"
+                    data-open-text="▽ 中間信念、中核信念"
+                    data-close-text="△ 中間信念、中核信念">
+                ▽ 中間信念、中核信念
+            </button>
+            <div id="evidence-area" class="toggle-contents" style="display:none">
+                <div class="auto-thought-evidence">
+                    <label class="title">・中間信念</label>
+                    <div>
+                        <input type="text" disabled>
+                    </div>
+                </div>
+                <div class="arrow-block">
+                    <div class="arrow"></div>
+                    <div class="arrow-caption"><label>断定系にすると</label></div>
+                </div>
+                <div class="auto-thought-evidence">
+                    <label class="title">・中核信念</label>
+                    <div>
+                        <input type="text" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="counter-evidence-section">
+            <button class="toggle-button"
+                    data-target="#counter-evidence-area"
+                    data-open-text="▽ 反証"
+                    data-close-text="△ 反証">
+                ▽ 反証
+            </button>
+            <div id="counter-evidence-area" class="toggle-contents" style="display:none">
+                <label class="title">・反証</label>
+                <div>
+                    <input type="text" class="counter-evidence" disabled/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="button-section">
+    <a asp-page="Step05_AdaptiveThoughts" class="btn-link">前の画面に戻る</a>
+    <button>保存</button>
+</div>
+
+<script>
+    $(function(){
+
+    });
+
+    $(document).on('click', '.toggle-button', function(){
+        // トグルの切り替え対象を取得
+        const $btn = $(this);
+        const targetSelector = $btn.data('target');
+        const $target = $(targetSelector);
+
+        // ボタンへの表示テキストを取得
+        const openText = $btn.data('open-text');
+        const closeText = $btn.data('close-text');
+
+        // トグルの状態を切り替え、表示テキストも更新
+        const isOpen = $target.is(':visible');
+        $target.slideToggle(250);
+        $btn.text(isOpen ? openText : closeText);
+    })
+</script>
