@@ -4,96 +4,84 @@
     // タブ名の定義
     ViewData["Title"] = "７つのコラム 新規作成";
 
-    /* その他の初期設定値 */
-    // 感情欄の初期表示数
-    var defaultLength = 3;
     // 自動思考のインデックス
-    var autoThoughtIndex = 0;
+    var autoThoughtIndex = Model.AutoThoughtIndex;
 }
 
-<div class="main-title">
-    <h1>７つのコラム　自動思考の内容</h1>
-</div>
-
-
-<div class="button-section">
-    <a asp-page="index" class="btn-link">一覧に戻る</a>
-</div>
-
-<div class="main-contents">
-    <div class="caption">
-        <label class="main-caption">湧いてきた自動思考とその時の感情を整理しよう</label>
-        <br>
-        <label class="sub-caption">(メインで取り扱いたい自動思考にチェック)</label>
+<form method="post">
+    <div class="main-title">
+        <h1>７つのコラム　自動思考の内容</h1>
     </div>
 
-    <div class="auto-thought-section" data-thought-index="@autoThoughtIndex">
-        <div class="auto-thought-area">
-            <input type="radio" name="mainThought" checked>
-            <label class="title">自動思考@(autoThoughtIndex)</label>
-            <div class="auto-thought">
-                <input type="text" value="○○と思われたかも">
-            </div>
-        </div>
-        <div class="emotion-section">
-            <label>その時の感情</label>
-            @for(int i = 0; i < defaultLength; i++)
-            {
-                <div class="emotion-area">
-                    <input name="emotion@(i + 1)" type="text" class="emotion">
-                    <input name="emotion-point@(i + 1)" type="text" class="emotion-point">
-                </div>
-            }
-        </div>
-        <div class="emotion-btn-area">
-            <button class="emotion-add-btn">感情の追加</button>
-            <button class="emotion-del-btn">感情の削除</button>
-        </div>
+    <div class="button-section">
+        <a asp-page="index" class="btn-link">一覧に戻る</a>
     </div>
 
-    <div class="added-section">
-        <div class="auto-thought-section">
-            <div class="auto-thought-area">
-                <input type="radio" name="mainThought">
-                <label class="title">自動思考@(autoThoughtIndex++)</label>
-                <div class="auto-thought">
-                    <input type="text" value="">
-                </div>
-            </div>
-            <div class="emotion-section">
-                <label>その時の感情</label>
-                @for (int i = 0; i < defaultLength; i++)
-                {
-                    <div class="emotion-area">
-                        <input id="emotion@(i + 1)" type="text" class="emotion">
-                        <input id="emotion-point@(i + 1)" type="text" class="emotion-point">
+    <div class="main-contents">
+        <div class="caption">
+            <label class="main-caption">湧いてきた自動思考とその時の感情を整理しよう</label>
+            <br>
+            <label class="sub-caption">(メインで取り扱いたい自動思考にチェック)</label>
+        </div>
+
+        @for (int i = 0; i < Model.DefaultAutoThoughtCount; i++)
+        {
+            <div class="auto-thought-section" data-thought-index="@autoThoughtIndex">
+                <div class="auto-thought-area">
+                    <input type="radio" 
+                        name="MainThoughtIndex" 
+                        value="@i" 
+                        @(Model.MainThoughtIndex == i ? "checked" : "")>
+                    <label class="title">自動思考@(autoThoughtIndex++)</label>
+                    <div class="auto-thought">
+                        <input type="text" 
+                            name="AutoThoughtList[@i].Thought" 
+                            asp-for="@Model.AutoThoughtList[i].Thought">
                     </div>
-                }
-            </div>
-            <div class="emotion-btn-area">
+                </div>
+                <div class="emotion-section">
+                    <label>その時の感情</label>
+                    @for (int j = 0; j < @Model.AutoThoughtList[i].EmotionList.Count; j++)
+                    {
+                        <div class="emotion-area">
+                            <input name="AutoThoughtList[@i].EmotionList[@j].Name" 
+                                    type="text" 
+                                    class="emotion"
+                                    asp-for="@Model.AutoThoughtList[i].EmotionList[j].Name">
+                            <input name="AutoThoughtList[@i].EmotionList[@j].Point" 
+                                    type="text" 
+                                    class="emotion-point"
+                                    asp-for="@Model.AutoThoughtList[i].EmotionList[j].Point">
+                        </div>
+                    }
+                </div>
                 @* TODO: emotion-areaの最下部と常に同じ行に表示させたい *@
-                <button class="emotion-add-btn">感情の追加</button>
-                <button class="emotion-del-btn">感情の削除</button>
+                <div class="emotion-btn-area">
+                    <button type="button" class="emotion-add-btn">感情の追加</button>
+                    <button type="button" class="emotion-del-btn">感情の削除</button>
+                </div>
+            </div>
+        }
+
+        <div class="added-section">
+            <div class="section-btn-area">
+                <button type="button" class="section-add-btn">自動思考の追加</button>
+                <button type="button" class="section-del-btn">自動思考の削除</button>
             </div>
         </div>
-        <div class="section-btn-area">
-            <button class="section-add-btn">自動思考の追加</button>
-            <button class="section-del-btn">自動思考の削除</button>
-        </div>
-    </div>
 
-</div>
-@* TODO: 下部に配置するボタンのレイアウト調整 *@ 
-<div class="button-section">
-    <a asp-page="Step01_Situation" class="btn-link">前の画面に戻る</a>
-    <button>一時保存</button>
-
-    <div class="right-group">
-        <a asp-page="Step03_Evidence" class="btn-link">次へ</a>
     </div>
-</div>
+    @* TODO: 下部に配置するボタンのレイアウト調整 *@ 
+    <div class="button-section">
+        <a asp-page="Step01_Situation" class="btn-link">前の画面に戻る</a>
+        <button>一時保存</button>
+        <button type="submit" class="btn-link">次へ</button>
+    </div>
+</form>
 
 <script>
+    // デバッグ用
+    console.log('script loaded');
 
     // ロード時処理
     $(function(){
@@ -103,14 +91,26 @@
     /* ボタン押下時の領域に対して感情エリアを追加／削除 */
     // 感情追加ボタン押下時
     $(document).on('click', '.emotion-add-btn', function(){
+        
+        // 追加先と複製対象の定義
         const targetContainer = $(this).closest('.auto-thought-section');
         const emotionSection = targetContainer.find('.emotion-section');
-        const originalArea = emotionSection.find('.emotion-area').first();
-        
+        const originalArea = emotionSection.find('.emotion-area');
+
+        // 採番用のインデックスを定義
+        const $autoThoughtIndex = targetContainer.attr('data-thought-index');
+        const $emotionIndex = originalArea.length;
+
         // 初期化して複製
-        const cloneArea = originalArea.clone();
+        const cloneArea = originalArea.first().clone();
         cloneArea.find('input').val('');
-        cloneArea.id
+
+        // 感情をバインドできるようにnameを更新
+        cloneArea.find('input.emotion')
+                 .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${$emotionIndex}].Name`);
+        cloneArea.find('input.emotion-point')
+                 .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${$emotionIndex}].Point`);
+
         emotionSection.append(cloneArea);
     });
 
@@ -128,33 +128,63 @@
     // 自動思考セクション追加ボタン押下時
     $(document).on('click', '.section-add-btn', function(){
     
+        // 追加元の領域を定義
+        var originContainer = $('.main-contents').find('.auto-thought-section');
+
         // 追加先の領域を定義
-        const addedSection = $(this).closest('.added-section');
+        const targetSection = $(this).closest('.added-section');
         
         // 複製したいdiv要素を定義
-        const template = addedSection.find('.auto-thought-section').first();
-        const cloneSection = template.clone();
+        const cloneSection = originContainer.first().clone();
 
-        // 入力初期化
+        // 自動思考のインデックスを取得
+        var $autoThoughtIndex = originContainer.length + targetSection .find('auto-thought-section').length + 1;
+
+        // 各項目を初期化
+        cloneSection.attr('data-thought-index', $autoThoughtIndex);
+        cloneSection.find('label.title').text(`自動思考${$autoThoughtIndex}`);
         cloneSection.find('input[type="text"]').val('');
         cloneSection.find('input[type="radio"]').prop('checked', false);
+        cloneSection.find('input[type="radio"]').val($autoThoughtIndex - 1);
 
         // 感情は3件にリセット
-        const emotionSection = cloneSection.find('.emotion-section');
-        emotionSection.find('.emotion-area').slice(3).remove();
+        cloneSection.find('.emotion-area').slice(3).remove();
 
-        // セクションの追加／削除ボタンを配置
-        addedSection.find('.section-btn-area').before(cloneSection);
+        // 自動思考と各感情をバインドできるようにnameを更新
+        cloneSection.find('.auto-thought > input[type="text"]')
+                    .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].Thought`);
+
+        const emotionAreas = cloneSection.find('.emotion-area');
+        for(var i = 0; i < @Model.DefaultEmotionCount; i++){
+            // 感情欄のname属性を更新
+            $(emotionAreas[i]).find('input.emotion')
+                            .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${i}].Name`);
+
+            // 点数欄のname属性を更新
+            $(emotionAreas[i]).find('input.emotion-point')
+                        .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${i}].Point`);
+        }
+
+        // セクションの追加／削除ボタンの前に複製した領域を配置
+        targetSection.find('.section-btn-area').before(cloneSection);
     });
 
     // 自動思考セクション削除ボタン押下時
     $(document).on('click', '.section-del-btn', function(){
 
         // 最下部の自動思考セクションを定義
-        const targetSection = $(this).closest('.added-section').find('.auto-thought-section');
-        
-        // 最低１件は残すよう削除
-        if(targetSection.length <= 1) return;
-        targetSection.last().remove();
+        const targetSection = $(this).closest('.added-section').find('.auto-thought-section').last();
+
+        // 対象のラジオボタンにチェックがついていた場合は、チェックをデフォルト位置に戻す
+        if(targetSection.find('input[type="radio"]').prop('checked')){
+            var defaultRadio = $('.main-contents')
+                                .find('.auto-thought-section')
+                                .find('input[type="radio"]')
+                                .first();
+            defaultRadio.prop('checked', true);
+        }
+
+        // 対象領域を削除
+        targetSection.remove();
     });
 </script>
