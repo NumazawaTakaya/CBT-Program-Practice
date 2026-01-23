@@ -3,43 +3,45 @@
 @{
     ViewData["Title"] = "７つのコラム 新規作成";
 }
-
-<div class="main-title">
-    <h1>７つのコラム　自動思考への反証</h1>
-</div>
-
-<div class="button-section">
-    <a asp-page="index" class="btn-link">一覧に戻る</a>
-</div>
-
-<div class="main-contents">
-    <div class="caption">
-        <label class="main-caption">自動思考の根拠に対して反証しよう</label>
+<form method="post">
+    <div class="main-title">
+        <h1>７つのコラム　自動思考への反証</h1>
     </div>
 
-    <div class="auto-thought-evidence-area">
-        <label class="title">・自動思考の根拠</label>
-        <div>
-            <input type="text" class="auto-thought-evidence" disabled/>
+    <div class="button-section">
+        <a asp-page="index" class="btn-link">一覧に戻る</a>
+    </div>
+
+    <div class="main-contents">
+        <div class="caption">
+            <label class="main-caption">自動思考の根拠に対して反証しよう</label>
         </div>
-    </div>
 
-    <br>
-
-    <div class="counter-evidence-area">
-        <label class="title">・反証</label>
-        <div>
-            <input type="text" class="counter-evidence"/>
+        <div class="auto-thought-evidence-area">
+            <label class="title">・自動思考の根拠</label>
+            <div>
+                <input type="text" class="auto-thought-evidence" asp-for="AutoThoughtEvidence" disabled/>
+            </div>
         </div>
+
+        <br>
+
+        <div class="counter-evidence-area">
+            <label class="title">・反証</label>
+            <div>
+                <input type="text" class="counter-evidence" asp-for="CounterEvidence.Counter"/>
+            </div>
+        </div>
+
     </div>
 
-</div>
-
-<div class="button-section">
-    <a asp-page="Step03_Evidence" class="btn-link">前の画面に戻る</a>
-    <button>一時保存</button>
-
-    <div class="right-group">
-        <a asp-page="Step05_AdaptiveThoughts" class="btn-link">次へ</a>
+    <div class="button-section">
+        <a asp-page="Step03_Evidence" class="btn-link">前の画面に戻る</a>
+        <button>一時保存</button>
+        <button type="submit" class="btn-link">次へ</button>
     </div>
-</div>
+</form>
+
+@section scripts {
+
+}

@@ -1,3 +1,5 @@
+@import "object/project/_seven-columns.css";
+
 /* テンプレートによる自動作成　ここから */
 html {
   font-size: 14px;
@@ -110,4 +112,9 @@ label.title {
 .sub-caption {
     font-size: 20px;
     padding: 0px 0px 10px 10px;
+}
+
+/* Step06 CSSが利かない問題 お試し修正 */
+.situation-input {
+    width: 500px;
 }
