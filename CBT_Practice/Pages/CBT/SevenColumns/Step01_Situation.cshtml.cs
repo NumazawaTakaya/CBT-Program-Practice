@@ -8,7 +8,7 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
     public class Step01_SituationModel : PageModel
     {
         [BindProperty]
-        public Situation Situation { get; set; } = new Situation();
+        public Situation Situation { get; set; } = new ();
 
         public void OnGet()
         {

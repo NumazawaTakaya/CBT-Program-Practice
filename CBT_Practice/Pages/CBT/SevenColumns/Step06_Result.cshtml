@@ -18,7 +18,7 @@
     </div>
 
     <div class="situation-area">
-        <input type="text" disabled/>
+        <input type="text" class="situation-input" asp-for="@Model.SituationString" readonly />
     </div>
 
     <div class="conjunction-area">
@@ -26,7 +26,7 @@
     </div>
     
     <div class="auto-thought-area">
-        <input type="text" disabled />
+        <input type="text" asp-for="MainAutoThought.Thought" readonly />
     </div>
 
     <div class="conjunction-area">
@@ -34,7 +34,7 @@
     </div>
 
     <div class="adaptive-thought-area">
-        <input type="text" disabled />
+        <input type="text" asp-for="@Model.AdaptiveThoughtString" readonly />
     </div>
 
     <div class="conjunction-area">
@@ -53,34 +53,24 @@
             <div id="emotion-section" class="toggle-contents" style="display:visible">
                 <div class="before-emotion">
                     <label class="title">・当時の感情</label>
-                    <div class="emotion-area">
-                        <input type="text" class="emotion" disabled>
-                        <input type="text" class="emotion-point" disabled>
-                    </div>
-                    <div class="emotion-area">
-                        <input type="text" class="emotion" disabled>
-                        <input type="text" class="emotion-point" disabled>
-                    </div>
-                    <div class="emotion-area">
-                        <input type="text" class="emotion" disabled>
-                        <input type="text" class="emotion-point" disabled>
-                    </div>
+                    @for (int i = 0; i < Model.PreviouceEmotionCount; i++)
+                    {
+                        <div class="emotion-area">
+                            <input type="text" asp-for="MainAutoThought.EmotionList[i].Name" class="emotion" disabled>
+                            <input type="text" asp-for="MainAutoThought.EmotionList[i].Point" class="emotion-point" disabled>
+                        </div>
+                    }
                 </div>
                 <div class="border-line"></div>
                 <div class="after-emotion">
                     <label class="title">・対応後の感情</label>
-                    <div class="emotion-area">
-                        <input type="text" class="emotion" disabled>
-                        <input type="text" class="emotion-point" disabled>
-                    </div>
-                    <div class="emotion-area">
-                        <input type="text" class="emotion" disabled>
-                        <input type="text" class="emotion-point" disabled>
-                    </div>
-                    <div class="emotion-area">
-                        <input type="text" class="emotion" disabled>
-                        <input type="text" class="emotion-point" disabled>
-                    </div>
+                    @for (int i = 0; i < Model.PresentEmotionCount; i++)
+                    {
+                        <div class="emotion-area">
+                            <input type="text" asp-for="AdaptiveThoght.EmotionList[i].Name" class="emotion" disabled>
+                            <input type="text" asp-for="AdaptiveThoght.EmotionList[i].Point" class="emotion-point" disabled>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -96,7 +86,7 @@
                 <div class="auto-thought-evidence">
                     <label class="title">・中間信念</label>
                     <div>
-                        <input type="text" disabled>
+                        <input type="text" asp-for="Evidence.InsideBelief" disabled>
                     </div>
                 </div>
                 <div class="arrow-block">
@@ -106,7 +96,7 @@
                 <div class="auto-thought-evidence">
                     <label class="title">・中核信念</label>
                     <div>
-                        <input type="text" disabled>
+                        <input type="text" asp-for="Evidence.CoreBelief" disabled>
                     </div>
                 </div>
             </div>
@@ -122,7 +112,7 @@
             <div id="counter-evidence-area" class="toggle-contents" style="display:none">
                 <label class="title">・反証</label>
                 <div>
-                    <input type="text" class="counter-evidence" disabled/>
+                    <input type="text" class="counter-evidence" asp-for="CounterEvidence.Counter" disabled/>
                 </div>
             </div>
         </div>
@@ -134,24 +124,26 @@
     <button>保存</button>
 </div>
 
-<script>
-    $(function(){
+@section scripts{
+    <script type="text/javascript">
+        $(function(){
 
-    });
+        });
 
-    $(document).on('click', '.toggle-button', function(){
-        // トグルの切り替え対象を取得
-        const $btn = $(this);
-        const targetSelector = $btn.data('target');
-        const $target = $(targetSelector);
+        $(document).on('click', '.toggle-button', function(){
+            // トグルの切り替え対象を取得
+            const $btn = $(this);
+            const targetSelector = $btn.data('target');
+            const $target = $(targetSelector);
 
-        // ボタンへの表示テキストを取得
-        const openText = $btn.data('open-text');
-        const closeText = $btn.data('close-text');
+            // ボタンへの表示テキストを取得
+            const openText = $btn.data('open-text');
+            const closeText = $btn.data('close-text');
 
-        // トグルの状態を切り替え、表示テキストも更新
-        const isOpen = $target.is(':visible');
-        $target.slideToggle(250);
-        $btn.text(isOpen ? openText : closeText);
-    })
-</script>
+            // トグルの状態を切り替え、表示テキストも更新
+            const isOpen = $target.is(':visible');
+            $target.slideToggle(250);
+            $btn.text(isOpen ? openText : closeText);
+        })
+    </script>
+}

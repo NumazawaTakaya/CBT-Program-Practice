@@ -4,102 +4,117 @@
     ViewData["Title"] = "７つのコラム 新規作成";
 }
 
-<div class="main-title">
-    <h1>７つのコラム　適応的思考</h1>
-</div>
-
-<div class="button-section">
-    <a asp-page="index" class="btn-link">一覧に戻る</a>
-</div>
-
-<div class="main-contents">
-    <div class="caption">
-        <label class="main-caption">自動思考と反証から適応的思考を導こう</label>
+<form method="post">
+    <div class="main-title">
+        <h1>７つのコラム　適応的思考</h1>
     </div>
 
-    <div class="auto-thought-section">
-        <label class="title">・自動思考</label>
-        <div class="auto-thought-area">
-            <input type="text" disabled value="○○と思われたかも">
+    <div class="button-section">
+        <a asp-page="index" class="btn-link">一覧に戻る</a>
+    </div>
+
+    <div class="main-contents">
+        <div class="caption">
+            <label class="main-caption">自動思考と反証から適応的思考を導こう</label>
+        </div>
+
+        <div class="auto-thought-section">
+            <label class="title">・自動思考</label>
+            <div class="auto-thought-area">
+                <input type="text" asp-for="MainAutoThought" disabled>
+            </div>
+        </div>
+
+        <div class="counter-evidence-section">
+            <label class="title">・反証</label>
+            <div class="counter-evidence-area">
+                <input type="text" asp-for="CounterEvidence" disabled />
+            </div>
+        </div>
+
+        <div class="arrow-block">
+            <div class="arrow"></div>
+        </div>
+
+        <div class="adaptive-thoughts-section">
+            <label class="title">・適応的思考</label>
+            <div class="before-thought-area">
+                <input type="text" asp-for="AdaptiveThought.BeforeThought"/>
+            </div>
+            <div class="conjunction-area">
+                <select asp-for="AdaptiveThought.Conjunction" asp-items="Model.ConjunctionList">
+                </select>
+            </div>
+            <div class="after-thought-area">
+                <input type="text" asp-for="AdaptiveThought.AfterThought"/>
+            </div>
+        </div>
+
+        <div class="emotion-section">
+            <label class="title">・現在の感情</label>
+            @for(int i = 0; i < Model.DefaultEmotionCount; i++){
+                <div class="emotion-area">
+                    <input name="AdaptiveThought.EmotionList[@i].Name"
+                           type="text"
+                           class="emotion"
+                           asp-for="AdaptiveThought.EmotionList[@i].Name">
+                    <input name="AdaptiveThought.EmotionList[@i].Point"
+                           type="text"
+                           class="emotion-point"
+                           asp-for="AdaptiveThought.EmotionList[@i].Point">
+                </div>
+            }
+            <div class="emotion-btn-area">
+                @* TODO: emotion-areaの最下部と常に同じ行に表示させたい *@
+                <button type="button" class="emotion-add-btn">感情の追加</button>
+                <button type="button" class="emotion-del-btn">感情の削除</button>
+            </div>
         </div>
     </div>
 
-    <div class="counter-evidence-section">
-        <label class="title">・反証</label>
-        <div class="counter-evidence-area">
-            <input type="text" disabled />
-        </div>
+    <div class="button-section">
+        <a asp-page="Step04_CounterEvidence" class="btn-link">前の画面に戻る</a>
+        <button type="button">一時保存</button>
+        <button type="submit" class="btn-link">次へ</button>
     </div>
+</form>
 
-    <div class="arrow-block">
-        <div class="arrow"></div>
-    </div>
+@section scripts{
+    <script src="~/js/sevenColumns.js"></script>
+    <script type="text/javascript">
+        
+        /* TODO: 外部JSに押下時処理を外出ししたい */
+        // 感情追加ボタン押下時
+        $(document).on('click', '.emotion-add-btn', function () {
 
-    <div class="adaptive-thoughts-section">
-        <label class="title">・適応的思考</label>
-        <div class="before-thought-area">
-            <input type="text" />
-        </div>
-        <div class="conjunction-area">
-            <select>
-                <option value="">に越したことはないが</option>
-            </select>
-        </div>
-        <div class="after-thought-area">
-            <input type="text" />
-        </div>
-    </div>
+            // 追加先と複製対象の定義
+            const emotionSection = $(this).closest('.emotion-section');
+            const originalArea = emotionSection.find('.emotion-area');
 
-    <div class="emotion-section">
-        <label class="title">・現在の感情</label>
-        <div class="emotion-area">
-            <input type="text" class="emotion">
-            <input type="text" class="emotion-point">
-        </div>
-        <div class="emotion-area">
-            <input type="text" class="emotion">
-            <input type="text" class="emotion-point">
-        </div>
-        <div class="emotion-area">
-            <input type="text" class="emotion">
-            <input type="text" class="emotion-point">
-        </div>
-        <div class="emotion-btn-area">
-            @* TODO: emotion-areaの最下部と常に同じ行に表示させたい *@
-            <button class="emotion-add-btn">感情の追加</button>
-            <button class="emotion-del-btn">感情の削除</button>
-        </div>
-    </div>
-</div>
+            // 採番用のインデックスを定義
+            const $emotionIndex = originalArea.length;
 
-<div class="button-section">
-    <a asp-page="Step04_CounterEvidence" class="btn-link">前の画面に戻る</a>
-    <button>一時保存</button>
+            // 初期化して複製
+            const cloneArea = originalArea.first().clone();
+            cloneArea.find('input').val('');
 
-    <div class="right-group">
-        <a asp-page="Step06_Result" class="btn-link">次へ</a>
-    </div>
-</div>
+            // 感情をバインドできるようにnameを更新
+            cloneArea.find('input.emotion')
+                .attr('name', `AdaptiveThought.EmotionList[${$emotionIndex}].Name`);
+            cloneArea.find('input.emotion-point')
+                .attr('name', `AdaptiveThought.EmotionList[${$emotionIndex}].Point`);
 
-<script>
-    // 感情追加ボタン押下時
-    $(document).on('click', '.emotion-add-btn', function(){
-        const targetContainer = $(this).closest('.emotion-section');
-        const originalArea = targetContainer.find('.emotion-area').first();
+            emotionSection.find('.emotion-btn-area').before(cloneArea);
+        });
 
-        // 初期化して複製
-        const cloneArea = originalArea.clone();
-        cloneArea.find('input').val('');
-        targetContainer.find('.emotion-btn-area').before(cloneArea);
-    });
+        // 感情削除ボタン押下時
+        $(document).on('click', '.emotion-del-btn', function () {
+            const emotionSection = $(this).closest('.emotion-section');
+            const originalArea = emotionSection.find('.emotion-area');
 
-    // 感情削除ボタン押下時
-    $(document).on('click', '.emotion-del-btn', function(){
-        const targetContainer = $(this).closest('.emotion-section');
-        const originalArea = targetContainer.find('.emotion-area');
-
-        // 最低３件は残すよう削除
-        if(originalArea.length <= 3) return;
-        originalArea.last().remove();
-    });
-</script>
+            // 最低３件は残すよう削除
+            if (originalArea.length <= 3) return;
+            originalArea.last().remove();
+        });
+    </script>
+}

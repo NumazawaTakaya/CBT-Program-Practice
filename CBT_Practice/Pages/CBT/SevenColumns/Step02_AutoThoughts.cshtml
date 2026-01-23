@@ -79,112 +79,115 @@
     </div>
 </form>
 
-<script>
-    // デバッグ用
-    console.log('script loaded');
+@section scripts{
+    <script src="~/js/sevenColumns.js"></script>
+    <script type="text/javascript">
+        // デバッグ用
+        console.log('script loaded');
 
-    // ロード時処理
-    $(function(){
+        // ロード時処理
+        $(function(){
 
-    });
+        });
 
-    /* ボタン押下時の領域に対して感情エリアを追加／削除 */
-    // 感情追加ボタン押下時
-    $(document).on('click', '.emotion-add-btn', function(){
-        
-        // 追加先と複製対象の定義
-        const targetContainer = $(this).closest('.auto-thought-section');
-        const emotionSection = targetContainer.find('.emotion-section');
-        const originalArea = emotionSection.find('.emotion-area');
+        /* ボタン押下時の領域に対して感情エリアを追加／削除 */
+        // 感情追加ボタン押下時
+        $(document).on('click', '.emotion-add-btn', function(){
 
-        // 採番用のインデックスを定義
-        const $autoThoughtIndex = targetContainer.attr('data-thought-index');
-        const $emotionIndex = originalArea.length;
+            // 追加先と複製対象の定義
+            const targetContainer = $(this).closest('.auto-thought-section');
+            const emotionSection = targetContainer.find('.emotion-section');
+            const originalArea = emotionSection.find('.emotion-area');
 
-        // 初期化して複製
-        const cloneArea = originalArea.first().clone();
-        cloneArea.find('input').val('');
+            // 採番用のインデックスを定義
+            const $autoThoughtIndex = targetContainer.attr('data-thought-index');
+            const $emotionIndex = originalArea.length;
 
-        // 感情をバインドできるようにnameを更新
-        cloneArea.find('input.emotion')
-                 .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${$emotionIndex}].Name`);
-        cloneArea.find('input.emotion-point')
-                 .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${$emotionIndex}].Point`);
+            // 初期化して複製
+            const cloneArea = originalArea.first().clone();
+            cloneArea.find('input').val('');
 
-        emotionSection.append(cloneArea);
-    });
+            // 感情をバインドできるようにnameを更新
+            cloneArea.find('input.emotion')
+                .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${$emotionIndex}].Name`);
+            cloneArea.find('input.emotion-point')
+                .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${$emotionIndex}].Point`);
 
-    // 感情削除ボタン押下時
-    $(document).on('click', '.emotion-del-btn', function(){
-        const targetContainer = $(this).closest('.auto-thought-section');
-        const emotionSection = targetContainer.find('.emotion-section');
-        const originalArea = emotionSection.find('.emotion-area');
+            emotionSection.append(cloneArea);
+        });
 
-        // 最低３件は残すよう削除
-        if(originalArea.length <= 3) return;
-        originalArea.last().remove();
-    });
+        // 感情削除ボタン押下時
+        $(document).on('click', '.emotion-del-btn', function () {
+            const targetContainer = $(this).closest('.auto-thought-section');
+            const emotionSection = targetContainer.find('.emotion-section');
+            const originalArea = emotionSection.find('.emotion-area');
 
-    // 自動思考セクション追加ボタン押下時
-    $(document).on('click', '.section-add-btn', function(){
+            // 最低３件は残すよう削除
+            if (originalArea.length <= 3) return;
+            originalArea.last().remove();
+        });
+
+        // 自動思考セクション追加ボタン押下時
+        $(document).on('click', '.section-add-btn', function(){
     
-        // 追加元の領域を定義
-        var originContainer = $('.main-contents').find('.auto-thought-section');
+            // 追加元の領域を定義
+            var originContainer = $('.main-contents').find('.auto-thought-section');
 
-        // 追加先の領域を定義
-        const targetSection = $(this).closest('.added-section');
+            // 追加先の領域を定義
+            const targetSection = $(this).closest('.added-section');
         
-        // 複製したいdiv要素を定義
-        const cloneSection = originContainer.first().clone();
+            // 複製したいdiv要素を定義
+            const cloneSection = originContainer.first().clone();
 
-        // 自動思考のインデックスを取得
-        var $autoThoughtIndex = originContainer.length + targetSection .find('auto-thought-section').length + 1;
+            // 自動思考のインデックスを取得
+            var $autoThoughtIndex = originContainer.length + targetSection .find('auto-thought-section').length + 1;
 
-        // 各項目を初期化
-        cloneSection.attr('data-thought-index', $autoThoughtIndex);
-        cloneSection.find('label.title').text(`自動思考${$autoThoughtIndex}`);
-        cloneSection.find('input[type="text"]').val('');
-        cloneSection.find('input[type="radio"]').prop('checked', false);
-        cloneSection.find('input[type="radio"]').val($autoThoughtIndex - 1);
+            // 各項目を初期化
+            cloneSection.attr('data-thought-index', $autoThoughtIndex);
+            cloneSection.find('label.title').text(`自動思考${$autoThoughtIndex}`);
+            cloneSection.find('input[type="text"]').val('');
+            cloneSection.find('input[type="radio"]').prop('checked', false);
+            cloneSection.find('input[type="radio"]').val($autoThoughtIndex - 1);
 
-        // 感情は3件にリセット
-        cloneSection.find('.emotion-area').slice(3).remove();
+            // 感情は3件にリセット
+            cloneSection.find('.emotion-area').slice(3).remove();
 
-        // 自動思考と各感情をバインドできるようにnameを更新
-        cloneSection.find('.auto-thought > input[type="text"]')
-                    .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].Thought`);
+            // 自動思考と各感情をバインドできるようにnameを更新
+            cloneSection.find('.auto-thought > input[type="text"]')
+                        .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].Thought`);
 
-        const emotionAreas = cloneSection.find('.emotion-area');
-        for(var i = 0; i < @Model.DefaultEmotionCount; i++){
-            // 感情欄のname属性を更新
-            $(emotionAreas[i]).find('input.emotion')
-                            .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${i}].Name`);
+            const emotionAreas = cloneSection.find('.emotion-area');
+            for(var i = 0; i < @Model.DefaultEmotionCount; i++){
+                // 感情欄のname属性を更新
+                $(emotionAreas[i]).find('input.emotion')
+                                .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${i}].Name`);
 
-            // 点数欄のname属性を更新
-            $(emotionAreas[i]).find('input.emotion-point')
-                        .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${i}].Point`);
-        }
+                // 点数欄のname属性を更新
+                $(emotionAreas[i]).find('input.emotion-point')
+                            .attr('name', `AutoThoughtList[${$autoThoughtIndex - 1}].EmotionList[${i}].Point`);
+            }
 
-        // セクションの追加／削除ボタンの前に複製した領域を配置
-        targetSection.find('.section-btn-area').before(cloneSection);
-    });
+            // セクションの追加／削除ボタンの前に複製した領域を配置
+            targetSection.find('.section-btn-area').before(cloneSection);
+        });
 
-    // 自動思考セクション削除ボタン押下時
-    $(document).on('click', '.section-del-btn', function(){
+        // 自動思考セクション削除ボタン押下時
+        $(document).on('click', '.section-del-btn', function(){
 
-        // 最下部の自動思考セクションを定義
-        const targetSection = $(this).closest('.added-section').find('.auto-thought-section').last();
+            // 最下部の自動思考セクションを定義
+            const targetSection = $(this).closest('.added-section').find('.auto-thought-section').last();
 
-        // 対象のラジオボタンにチェックがついていた場合は、チェックをデフォルト位置に戻す
-        if(targetSection.find('input[type="radio"]').prop('checked')){
-            var defaultRadio = $('.main-contents')
-                                .find('.auto-thought-section')
-                                .find('input[type="radio"]')
-                                .first();
-            defaultRadio.prop('checked', true);
-        }
+            // 対象のラジオボタンにチェックがついていた場合は、チェックをデフォルト位置に戻す
+            if(targetSection.find('input[type="radio"]').prop('checked')){
+                var defaultRadio = $('.main-contents')
+                                    .find('.auto-thought-section')
+                                    .find('input[type="radio"]')
+                                    .first();
+                defaultRadio.prop('checked', true);
+            }
 
-        // 対象領域を削除
-        targetSection.remove();
-    });
-</script>
+            // 対象領域を削除
+            targetSection.remove();
+        });
+    </script>
+}
