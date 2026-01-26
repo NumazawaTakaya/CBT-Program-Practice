@@ -19,20 +19,20 @@
             <label class="main-caption">自動思考の根拠と、その基になっている中核信念を探ろう</label>
         </div>
 
-        <div>
+        <div class="evidence-section">
             <div class="auto-thought-area">
                 <label class="title">・自動思考</label>
                 <div class="auto-thought">
-                    <input type="text" disabled asp-for="MainAutoThought">
+                    <input type="text" asp-for="MainAutoThought" disabled>
                 </div>
             </div>
             <div class="arrow-block">
                 <div class="arrow"></div>
                 <div class="arrow-caption"><label>そう思った根拠は？</label></div>
             </div>
-            <div class="auto-thought-evidence">
+            <div class="thought-evidence-area">
                 <label class="title">・自動思考の根拠</label>
-                <div>
+                <div class="auto-thought-evidence">
                     <input type="text" asp-for="Evidence.AutoThoughtEvidence" />
                 </div>
             </div>
@@ -40,9 +40,9 @@
                 <div class="arrow"></div>
                 <div class="arrow-caption"><label>もっと極端に言えば</label></div>
             </div>
-            <div class="auto-thought-evidence">
+            <div class="inside-belief-area">
                 <label class="title">・中間信念</label>
-                <div>
+                <div class="inside-belief">
                     <input type="text" asp-for="Evidence.InsideBelief" />
                 </div>
             </div>
@@ -50,9 +50,9 @@
                 <div class="arrow"></div>
                 <div class="arrow-caption"><label>断定系にすると</label></div>
             </div>
-            <div class="auto-thought-evidence">
+            <div class="core-belief-area">
                 <label class="title">・中核信念</label>
-                <div>
+                <div class="core-belief">
                     <input type="text" asp-for="Evidence.CoreBelief" />
                 </div>
             </div>

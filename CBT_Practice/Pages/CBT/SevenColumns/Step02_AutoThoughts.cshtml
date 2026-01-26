@@ -39,26 +39,28 @@
                             asp-for="@Model.AutoThoughtList[i].Thought">
                     </div>
                 </div>
-                <div class="emotion-section">
-                    <label>その時の感情</label>
-                    @for (int j = 0; j < @Model.AutoThoughtList[i].EmotionList.Count; j++)
-                    {
-                        <div class="emotion-area">
-                            <input name="AutoThoughtList[@i].EmotionList[@j].Name" 
-                                    type="text" 
-                                    class="emotion"
-                                    asp-for="@Model.AutoThoughtList[i].EmotionList[j].Name">
-                            <input name="AutoThoughtList[@i].EmotionList[@j].Point" 
-                                    type="text" 
-                                    class="emotion-point"
-                                    asp-for="@Model.AutoThoughtList[i].EmotionList[j].Point">
-                        </div>
-                    }
-                </div>
-                @* TODO: emotion-areaの最下部と常に同じ行に表示させたい *@
-                <div class="emotion-btn-area">
-                    <button type="button" class="emotion-add-btn">感情の追加</button>
-                    <button type="button" class="emotion-del-btn">感情の削除</button>
+                <div class="emotion-contents">
+                    <div class="emotion-section">
+                        <label>その時の感情</label>
+                        @for (int j = 0; j < @Model.AutoThoughtList[i].EmotionList.Count; j++)
+                        {
+                            <div class="emotion-area">
+                                <input name="AutoThoughtList[@i].EmotionList[@j].Name"
+                                       type="text"
+                                       class="emotion"
+                                       asp-for="@Model.AutoThoughtList[i].EmotionList[j].Name">
+                                <input name="AutoThoughtList[@i].EmotionList[@j].Point"
+                                       type="text"
+                                       class="emotion-point"
+                                       asp-for="@Model.AutoThoughtList[i].EmotionList[j].Point">
+                            </div>
+                        }
+                    </div>
+                    @* TODO: emotion-areaの最下部と常に同じ行に表示させたい *@
+                    <div class="emotion-btn-area">
+                        <button type="button" class="emotion-add-btn">感情の追加</button>
+                        <button type="button" class="emotion-del-btn">感情の削除</button>
+                    </div>
                 </div>
             </div>
         }

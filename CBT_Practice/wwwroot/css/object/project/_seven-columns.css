@@ -1,2 +1,284 @@
-﻿body {
+﻿/* --- 7つのコラム共通のスタイル ここから --- */
+.main-contents {
+    font-size: 1.3em;
 }
+
+/* 矢印 */
+.arrow-block {
+    display: flex;
+    margin: 10px 0px 20px 10px;
+}
+
+.arrow {
+    display: inline-block;
+    width: 43.5px;
+    height: 75px;
+    background: #AFDFE4;
+    clip-path: polygon(0 63.2%, 31% 63.2%, 31% 0, 69% 0, 69% 63.2%, 100% 63.2%, 50% 100%);
+}
+
+.arrow-caption {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.85em;
+}
+
+/* 共通項目①：自動思考の入力欄 */
+.auto-thought input[type="text"] {
+    border: 1px solid;
+    width: 600px;
+    height: 40px;
+}
+
+/* 共通項目②：感情の入力欄 */
+/* 入力欄～感情ボタンのスタイル */
+.emotion-contents {
+    display: flex;
+    align-items: flex-end;
+}
+
+.emotion-area{
+    display: flex;
+    gap: 10px;
+}
+
+    .emotion-area input[type="text"]{
+        width: 200px;
+        height: 30px;
+        font-size: 0.8em;
+    }
+
+    .emotion-area > .emotion {
+        margin: 2px;
+    }
+
+    .emotion-area > .emotion-point {
+        border: none;
+        border-bottom: 1.5px dotted;
+    }
+
+/* 共通項目③：感情の追加／削除ボタン */
+.emotion-btn-area{
+    margin:10px 0px 0px 20px;
+}
+
+    .emotion-btn-area button {
+        font-size: 0.8em;
+    }
+
+/* 共通項目④：自動思考の根拠 */
+.auto-thought-evidence input[type="text"] {
+    border: 1px solid;
+    width: 600px;
+    height: 150px;
+}
+
+/* 共通項目⑤：中間信念 */
+.inside-belief-area input[type="text"] {
+    border: 1px solid;
+    width: 600px;
+    height: 150px;
+}
+
+/* 共通項目⑥：中核信念 */
+.core-belief > input[type="text"] {
+    border: 1px solid;
+    width: 600px;
+    height: 40px;
+}
+
+/* 共通項目⑦：反証*/
+.counter-evidence input[type="text"] {
+    border: 1px solid;
+    width: 600px;
+    padding: 10px;
+    height: 500px;
+    text-align: left;
+}
+
+/* 共通項目⑧：適応的思考 */
+.before-thought input[type="text"],
+.after-thought input[type="text"] {
+    border: 1px solid;
+    width: 600px;
+    height: 40px;
+}
+
+.conjunction-thought {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* --- 7つのコラム共通のスタイル ここまで --- */
+
+
+/* --- Step01 固有のスタイル ここから ---*/
+/* いつ～どのように までの基本スタイル */
+.situation {
+    display: grid;
+    grid-template-columns: 120px 20px 1fr;
+    align-items: center;
+    margin-bottom: 8px;
+    
+    border: 2px solid gainsboro;
+    margin: 5px;
+    padding: 5px 5px 5px 5px;
+    height: 55px;
+}
+
+    .situation > .label {
+        text-align: left;
+    }
+
+    .situation > .colon {
+        text-align: center;
+    }
+
+    .situation > .field {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
+    }
+
+    /* 1行1項目 型スタイル */
+    .situation .one-component {
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* 1行2項目 型スタイル */
+    .situation .two-component {
+        width: 50%;
+        min-width: 0;
+    }
+
+/* その他背景情報のデザイン */
+.other-situation {
+    border: 2px solid gainsboro;
+    margin: 5px;
+    min-height: 450px;
+    padding: 5px;
+}
+
+    .other-situation > .one-component {
+        height: 450px;
+        width: 75%;
+        min-width: 0;
+        vertical-align: top;
+        margin: 5px 5px 5px 3px;
+    }
+/* --- Step01 固有のスタイル ここまで ---*/
+
+
+/* --- Step02 固有のスタイル ここから ---*/
+/* 自動思考入力部 */
+.auto-thought-section {
+    margin: 10px 0px 20px 5px;
+    border-bottom: 2px dotted;
+    width: 800px;
+    padding: 10px;
+}
+
+    .auto-thought-section > .auto-thought-area {
+        margin-bottom: 10px;
+    }
+
+
+
+/* 自動思考の追加／削除ボタン表示部 */
+.section-btn-area {
+    margin: 10px;
+}
+
+    .section-btn-area button {
+        font-size: 0.8em;
+    }
+/* --- Step02 固有のスタイル ここまで ---*/
+
+
+/* --- Step03 固有のスタイル ここから ---*/
+/* コンテンツ全体 */
+.evidence-section {
+    margin: 20px 0px 20px 10px;
+    padding: 5px 0px 5px 5px;
+}
+
+    .evidence-section > .auto-thought-area,
+    .evidence-section > .thought-evidence-area,
+    .evidence-section > .inside-belief-area,
+    .evidence-section > .core-belief-area {
+        margin-bottom: 20px;
+    }
+/* --- Step03 固有のスタイル ここまで ---*/
+
+
+/* --- Step04 固有のスタイル ここから ---*/
+.counter-evidence-section{
+    margin: 10px;
+}
+/* --- Step04 固有のスタイル ここまで ---*/
+
+
+/* --- Step05 固有のスタイル ここから ---*/
+.adaptive-thought-contents {
+    margin: 10px 0px 10px 10px;
+}
+
+.emotion-section{
+    margin-top: 20px;
+}
+/* --- Step05 固有のスタイル ここまで ---*/
+
+
+/* --- Step06 固有のスタイル ここから ---*/
+.result-contents{
+    margin:20px 0px 10px 10px;
+}
+
+.situation-area input[type="text"],
+.auto-thought-area input[type="text"],
+.adaptive-thought-area input[type="text"] {
+    width: 800px;
+}
+
+/* スライドトグル全体 */
+.toggle-button {
+    width: 900px;
+    text-align: left;
+}
+
+/* トグルの内容 */
+.toggle-contents {
+    padding: 10px;
+    width: 700px;
+    box-sizing: border-box;
+}
+
+/* 感情の遷移部 */
+.emotion-section .toggle-contents {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.emotion-section .border-line {
+    width: 1px;
+    align-self: stretch;
+    border-left: 2px dotted #bbb;
+}
+
+/* 中間信念・中核信念トグル */
+.detail-section > .evidence-section{
+    margin: 10px 0px 10px 0px;
+    padding: 0px;
+}
+
+/* 反証トグル */
+.detail-section > .counter-evidence-section {
+    margin: 10px 0px 10px 0px;
+    padding: 0px;
+}
+
+/* --- Step06 固有のスタイル ここまで ---*/
