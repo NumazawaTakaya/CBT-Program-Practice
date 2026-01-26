@@ -18,56 +18,61 @@
             <label class="main-caption">自動思考と反証から適応的思考を導こう</label>
         </div>
 
-        <div class="auto-thought-section">
-            <label class="title">・自動思考</label>
+        <div class="adaptive-thought-contents">
             <div class="auto-thought-area">
-                <input type="text" asp-for="MainAutoThought" disabled>
-            </div>
-        </div>
-
-        <div class="counter-evidence-section">
-            <label class="title">・反証</label>
-            <div class="counter-evidence-area">
-                <input type="text" asp-for="CounterEvidence" disabled />
-            </div>
-        </div>
-
-        <div class="arrow-block">
-            <div class="arrow"></div>
-        </div>
-
-        <div class="adaptive-thoughts-section">
-            <label class="title">・適応的思考</label>
-            <div class="before-thought-area">
-                <input type="text" asp-for="AdaptiveThought.BeforeThought"/>
-            </div>
-            <div class="conjunction-area">
-                <select asp-for="AdaptiveThought.Conjunction" asp-items="Model.ConjunctionList">
-                </select>
-            </div>
-            <div class="after-thought-area">
-                <input type="text" asp-for="AdaptiveThought.AfterThought"/>
-            </div>
-        </div>
-
-        <div class="emotion-section">
-            <label class="title">・現在の感情</label>
-            @for(int i = 0; i < Model.DefaultEmotionCount; i++){
-                <div class="emotion-area">
-                    <input name="AdaptiveThought.EmotionList[@i].Name"
-                           type="text"
-                           class="emotion"
-                           asp-for="AdaptiveThought.EmotionList[@i].Name">
-                    <input name="AdaptiveThought.EmotionList[@i].Point"
-                           type="text"
-                           class="emotion-point"
-                           asp-for="AdaptiveThought.EmotionList[@i].Point">
+                <label class="title">・自動思考</label>
+                <div class="auto-thought">
+                    <input type="text" asp-for="MainAutoThought" disabled>
                 </div>
-            }
-            <div class="emotion-btn-area">
-                @* TODO: emotion-areaの最下部と常に同じ行に表示させたい *@
-                <button type="button" class="emotion-add-btn">感情の追加</button>
-                <button type="button" class="emotion-del-btn">感情の削除</button>
+            </div>
+
+            <div class="counter-evidence-area">
+                <label class="title">・反証</label>
+                <div class="counter-evidence">
+                    <input type="text" asp-for="CounterEvidence" disabled />
+                </div>
+            </div>
+
+            <div class="arrow-block">
+                <div class="arrow"></div>
+            </div>
+
+            <div class="adaptive-thoughts-section">
+                <label class="title">・適応的思考</label>
+                <div class="before-thought">
+                    <input type="text" asp-for="AdaptiveThought.BeforeThought" />
+                </div>
+                <div class="conjunction-thought">
+                    <select asp-for="AdaptiveThought.Conjunction" asp-items="Model.ConjunctionList">
+                    </select>
+                </div>
+                <div class="after-thought">
+                    <input type="text" asp-for="AdaptiveThought.AfterThought" />
+                </div>
+            </div>
+
+            <div class="emotion-contents">
+                <div class="emotion-section">
+                    <label class="title">・現在の感情</label>
+                    @for (int i = 0; i < Model.DefaultEmotionCount; i++)
+                    {
+                        <div class="emotion-area">
+                            <input name="AdaptiveThought.EmotionList[@i].Name"
+                                   type="text"
+                                   class="emotion"
+                                   asp-for="AdaptiveThought.EmotionList[@i].Name">
+                            <input name="AdaptiveThought.EmotionList[@i].Point"
+                                   type="text"
+                                   class="emotion-point"
+                                   asp-for="AdaptiveThought.EmotionList[@i].Point">
+                        </div>
+                    }
+                </div>
+                <div class="emotion-btn-area">
+                    @* TODO: emotion-areaの最下部と常に同じ行に表示させたい *@
+                    <button type="button" class="emotion-add-btn">感情の追加</button>
+                    <button type="button" class="emotion-del-btn">感情の削除</button>
+                </div>
             </div>
         </div>
     </div>
@@ -88,7 +93,7 @@
         $(document).on('click', '.emotion-add-btn', function () {
 
             // 追加先と複製対象の定義
-            const emotionSection = $(this).closest('.emotion-section');
+            const emotionSection = $(this).closest('.emotion-contents').find('.emotion-section');
             const originalArea = emotionSection.find('.emotion-area');
 
             // 採番用のインデックスを定義
@@ -104,12 +109,12 @@
             cloneArea.find('input.emotion-point')
                 .attr('name', `AdaptiveThought.EmotionList[${$emotionIndex}].Point`);
 
-            emotionSection.find('.emotion-btn-area').before(cloneArea);
+            emotionSection.append(cloneArea);
         });
 
         // 感情削除ボタン押下時
         $(document).on('click', '.emotion-del-btn', function () {
-            const emotionSection = $(this).closest('.emotion-section');
+            const emotionSection = $(this).closest('.emotion-contents').find('.emotion-section');
             const originalArea = emotionSection.find('.emotion-area');
 
             // 最低３件は残すよう削除

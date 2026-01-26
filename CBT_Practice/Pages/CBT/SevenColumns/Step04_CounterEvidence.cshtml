@@ -17,22 +17,24 @@
             <label class="main-caption">自動思考の根拠に対して反証しよう</label>
         </div>
 
-        <div class="auto-thought-evidence-area">
-            <label class="title">・自動思考の根拠</label>
-            <div>
-                <input type="text" class="auto-thought-evidence" asp-for="AutoThoughtEvidence" disabled/>
+        <div class="counter-evidence-section">
+            <div class="auto-thought-evidence-area">
+                <label class="title">・自動思考の根拠</label>
+                <div class="auto-thought-evidence">
+                    <input type="text" asp-for="AutoThoughtEvidence" disabled />
+                </div>
             </div>
-        </div>
 
-        <br>
+            <br>
 
-        <div class="counter-evidence-area">
-            <label class="title">・反証</label>
-            <div>
-                <input type="text" class="counter-evidence" asp-for="CounterEvidence.Counter"/>
+            <div class="counter-evidence-area">
+                <label class="title">・反証</label>
+                <div class="counter-evidence">
+                    <input type="text" asp-for="CounterEvidence.Counter" />
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
     <div class="button-section">
