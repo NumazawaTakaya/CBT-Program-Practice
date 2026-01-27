@@ -1,4 +1,4 @@
-﻿namespace CBT_Practice.Models
+﻿namespace CBT_Practice.Models.ViewModels
 {
     public class AutoThought
     {       

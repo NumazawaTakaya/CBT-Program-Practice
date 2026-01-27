@@ -1,5 +1,5 @@
 using CBT_Practice.Helpers;
-using CBT_Practice.Models;
+using CBT_Practice.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

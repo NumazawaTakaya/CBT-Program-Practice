@@ -1,5 +1,7 @@
+using CBT_Practice.Data;
 using CBT_Practice.Helpers;
-using CBT_Practice.Models;
+using CBT_Practice.Models.Entities;
+using CBT_Practice.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,6 +9,8 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
 {
     public class Step06_ResultModel : PageModel
     {
+        private readonly AppDbContext _dbContext;
+
         /// <summary>Step01_自動思考の発生状況</summary>
         [BindProperty]
         public Situation? Situation { get; set; }
@@ -87,6 +91,54 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
 
                 PresentEmotionCount = AdaptiveThoght.EmotionList.Count;
             }
+        }
+
+        /// <summary>
+        /// 保存ボタン押下時処理
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult OnPost()
+        {
+            // 最新のIDを取得
+            var latestRecord = _dbContext.SEVEN_COLUMNs
+                                .OrderByDescending(x => x.ID)
+                                .FirstOrDefault();
+            long sevenColumnsId = 1;
+            if (latestRecord != null) {
+                sevenColumnsId = latestRecord.ID + 1;
+            }
+            
+            /* 各Entityモデルの作成 */
+            // 作成日時を定義
+            DateTime createTime = DateTime.Now;
+
+            // Situation型Entityモデルへの格納
+            if(Situation != null)
+            {
+                SITUATION SITUATION = new SITUATION
+                {
+                    HAPPEND_TIME = Situation.HappenedTime,
+                    HAPPEND_TIME_DETAIL = Situation.HappenedTimeDetail,
+                    HAPPEND_PLACE = Situation.HappenedPlace,
+                    CHARACTER_FROM = Situation.CharacterFrom,
+                    CHARACTER_TO = Situation.CharacterTo,
+                    PROPOSAL_OBJECT = Situation.ProposalObject,
+                    APPROACH = Situation.Approach,
+                    OTHER_INFO = Situation.OtherBackgroundInfo,
+                    CREATED_AT = createTime
+                };
+            }
+
+            // AutoThoughts型Entityモデルへの格納
+            if (MainAutoThought != null)
+            {
+                AUTO_THOUGHT AUTO_THOUGHT = new AUTO_THOUGHT
+                {
+
+                }
+            }
+
+            return RedirectToPage("Index");
         }
     }
 }
