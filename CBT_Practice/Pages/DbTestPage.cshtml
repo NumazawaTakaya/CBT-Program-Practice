@@ -1,0 +1,20 @@
+﻿@page
+@model CBT_Practice.Pages.DbTestPageModel
+@{
+}
+
+<form method="post">
+    <input type="text" asp-for="_content" placeholder="Content入力" />
+    <button asp-page-handler="Create">Create</button>
+    <button asp-page-handler="Update">Update</button>
+    <button asp-page-handler="Delete">Delete</button>
+</form>
+<h3>登録データ</h3>
+<ul>
+    @foreach(var item in Model.DbTests)
+    {
+        <li>
+            @item.Id / @item.Content / @item.ChangeType / @item.CreatedAt
+        </li>
+    }
+</ul>
