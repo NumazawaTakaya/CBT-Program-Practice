@@ -1,4 +1,6 @@
-﻿namespace CBT_Practice.Models.ViewModels
+﻿using CBT_Practice.Models.Entities;
+
+namespace CBT_Practice.Models.ViewModels
 {
     public class Situation
     {
@@ -41,5 +43,27 @@
         /// その他の背景情報
         /// </summary>
         public string? OtherBackgroundInfo { get; set; }
+
+
+        public void setSevenColumnsEntity(SEVEN_COLUMN sevenColumns, DateTime createTime)
+        {
+            var situationModel = new SITUATION
+            {
+                HAPPEND_TIME = HappenedTime,
+                HAPPEND_TIME_DETAIL = HappenedTimeDetail,
+                HAPPEND_PLACE = HappenedPlace,
+                CHARACTER_FROM = CharacterFrom,
+                CHARACTER_TO = CharacterTo,
+                PROPOSAL_OBJECT = ProposalObject,
+                APPROACH = Approach,
+                OTHER_INFO = OtherBackgroundInfo,
+                CREATED_AT = createTime,
+
+                SEVEN_COLUMNS = sevenColumns
+            };
+
+            // SevenColumnsにSituationを紐づけ
+            sevenColumns.SITUATIONs.Add(situationModel);
+        }
     }
 }
