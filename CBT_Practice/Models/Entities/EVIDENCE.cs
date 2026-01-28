@@ -9,7 +9,7 @@ public partial class EVIDENCE
 
     public long THOUGHTS_ID { get; set; }
 
-    public string EVIDENCE1 { get; set; } = null!;
+    public string? EVIDENCE1 { get; set; }
 
     public string? INSIDE_BELIEF { get; set; }
 

@@ -237,10 +237,24 @@
     margin:20px 0px 10px 10px;
 }
 
+.title-area{
+    margin-top: 20px;
+}
+
+    .title-area input{
+        width: 60%;
+    }
+
+.main-result {
+    border: 1px solid gainsboro;
+    width: 90%;
+    padding: 20px 10px 20px 10px;
+}
+
 .situation-area input[type="text"],
 .auto-thought-area input[type="text"],
 .adaptive-thought-area input[type="text"] {
-    width: 800px;
+    width: 80%;
 }
 
 /* スライドトグル全体 */

@@ -19,7 +19,7 @@ public partial class SITUATION
 
     public string? CHARACTER_TO { get; set; }
 
-    public string PROPOSAL_OBJECT { get; set; } = null!;
+    public string? PROPOSAL_OBJECT { get; set; }
 
     public string? APPROACH { get; set; }
 

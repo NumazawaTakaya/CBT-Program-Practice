@@ -23,6 +23,8 @@ namespace CBT_Practice.Data
 
         public virtual DbSet<dbTest> dbTests { get; set; }
 
+        public virtual DbSet<ADAPTIVE_THOUGHT> ADAPTIVE_THOUGHTs { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
             => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=cbt_app;Trusted_Connection=True;TrustServerCertificate=True;");
@@ -81,6 +83,18 @@ namespace CBT_Practice.Data
                     .HasForeignKey(d => d.THOUGHTS_ID)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_EVIDENCES_AUTO_THOUGHTS");
+            });
+
+            modelBuilder.Entity<ADAPTIVE_THOUGHT>(entity =>
+            {
+                entity.ToTable("ADAPTIVE_THOUGHTS");
+
+                entity.Property(e => e.AFTER_THOUGHT).HasMaxLength(500);
+                entity.Property(e => e.BEFORE_THOUGHT).HasMaxLength(500);
+                entity.Property(e => e.CONJUNCTION_THOUGHT).HasMaxLength(50);
+                entity.Property(e => e.CREATED_AT)
+                    .HasPrecision(0)
+                    .HasDefaultValueSql("(sysdatetime())");
             });
 
             modelBuilder.Entity<SEVEN_COLUMN>(entity =>
