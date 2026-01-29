@@ -3,6 +3,11 @@
     public class CbtSession
     {
         /// <summary>
+        /// 7つのコラムのタイトル
+        /// </summary>
+        public string? Title {  get; set; }
+
+        /// <summary>
         /// Step01_Situation.cshtmlの入力項目
         /// </summary>
         public Situation? Situation { get; set; }
