@@ -9,7 +9,7 @@ public partial class SITUATION
 
     public long SEVEN_COLUMNS_ID { get; set; }
 
-    public DateTime HAPPEND_TIME { get; set; }
+    public DateTime? HAPPEND_TIME { get; set; }
 
     public string? HAPPEND_TIME_DETAIL { get; set; }
 

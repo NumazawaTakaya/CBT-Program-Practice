@@ -19,6 +19,7 @@ namespace CBT_Practice.Models.ViewModels
         /// </summary>
         public static void setSevenColumnsEntity(SEVEN_COLUMN sevenColumnsModel
             ,EVIDENCE evidenceEntity
+            ,ADAPTIVE_THOUGHT adaptiveThought
             ,List<AutoThought> autoThoughtList
             ,int mainThoughtIndex
             ,DateTime createTime)
@@ -39,11 +40,14 @@ namespace CBT_Practice.Models.ViewModels
                     // Emotion型Entityの作成、紐づけ
                     autoThoughtList[i].setEmotionEntityList(autoThoughtEntity, createTime);
 
-                    // Evidence型Entityの紐づけ
+                    // Evidence型、AdaptiveThought型Entityの紐づけ
                     if(i == mainThoughtIndex)
                     {
                         autoThoughtEntity.EVIDENCEs.Add(evidenceEntity);
+                        autoThoughtEntity.ADAPTIVE_THOUGHTs.Add(adaptiveThought);
+
                         evidenceEntity.THOUGHTS = autoThoughtEntity;
+                        adaptiveThought.THOUGHTS = autoThoughtEntity;
                     }
 
                     // 親テーブルと紐づけ
@@ -55,22 +59,19 @@ namespace CBT_Practice.Models.ViewModels
         /// <summary>
         /// 対応する感情リストのEntity化
         /// </summary>
-        /// <param name="autoThoughtEntity"></param>
-        /// <param name="createTime"></param>
-        /// <returns></returns>
         public void setEmotionEntityList(AUTO_THOUGHT autoThoughtEntity,DateTime createTime)
         {
             foreach(var emotion in EmotionList)
             {
-                var emotionEntity = new EMOTION
+                var emotionEntity = new AUTO_THOUGHT_EMOTION
                 {
-                    EMOTION1 = emotion.Name,
+                    EMOTION = emotion.Name,
                     POINT = emotion.Point,
                     CREATED_AT = createTime,
-                    THOUGHTS = autoThoughtEntity,
+                    AUTO_THOUGHTS = autoThoughtEntity,
                 };
 
-                autoThoughtEntity.EMOTIONs.Add(emotionEntity);
+                autoThoughtEntity.AUTO_THOUGHT_EMOTIONs.Add(emotionEntity);
             }
         }
     }

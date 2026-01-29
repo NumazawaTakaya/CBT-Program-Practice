@@ -2,6 +2,7 @@
 @model CBT_Practice.Pages.CBT.SevenColumns.IndexModel
 @{
     ViewData["Title"] = "７つのコラム 一覧";
+    var listCount = Model.SevenColumnsList.Count;
 }
 
 <div class="main-title">
@@ -32,15 +33,21 @@
                 </tr>
             </thead>
             <tbody>
-                @for(int i = 0; i < 30; i++){
+                @for (int i = 0; i < listCount; i++)
+                {
+                    var target = Model.SevenColumnsList[i];
                     <tr>
                         <td>@(i + 1)</td>
-                        <td>テスト@(i + 1)</td>
-                        <td>テスト@(i + 1)</td>
-                        <td>テスト@(i + 1)</td>
-                        <td>テスト@(i + 1)</td>
-                        <td>テスト@(i + 1)</td>
-                        <td>@if (i % 2 == 0) { <button>確認</button> }</td>
+                        <td>@target.SevenColumnsTitle</td>
+                        <td>@target.MainAutoThough</td>
+                        <td>@target.MainEmotion</td>
+                        <td>@target.HappenedTime?.ToString("yyyy年MM月dd日")</td>
+                        <td>@(target.IsCompleted ? "〇" : "ー")</td>
+                        <td>@if (target.IsCompleted)
+                            {
+                                <button>確認</button>
+                            }
+                        </td>
                         <td><button>編集</button></td>
                     </tr>
                 }

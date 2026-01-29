@@ -10,6 +10,15 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
         [BindProperty]
         public Situation Situation { get; set; } = new ();
 
+        /// <summary>
+        /// 一時保存用タイトル
+        /// </summary>
+        [BindProperty]
+        public string? Title { get; set; }
+
+        /// <summary>
+        /// 画面読み込み時処理
+        /// </summary>
         public void OnGet()
         {
             // すでに Session があれば読み込む（戻るボタン押下時）
@@ -20,6 +29,9 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             }
         }
 
+        /// <summary>
+        /// submit時処理
+        /// </summary>
         public IActionResult OnPost()
         {
             // Session から取得 or 新規作成
@@ -33,6 +45,16 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             // Session に保存
             HttpContext.Session.SetObject("CbtSession", sessionData);
             return RedirectToPage("Step02_AutoThoughts");
+        }
+
+        /// <summary>
+        /// 一時保存ボタン押下時
+        /// </summary>
+        public IActionResult OnPostSave()
+        {
+
+            var title = Title;
+            return RedirectToPage("Index");
         }
     }
 }

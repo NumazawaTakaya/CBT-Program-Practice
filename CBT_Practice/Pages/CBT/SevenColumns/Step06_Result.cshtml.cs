@@ -92,9 +92,13 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             // EvidenceŒ^Entityƒ‚ƒfƒ‹‚Ìì¬
             var evidenceEntity = Evidence.getEvidenceEntity(CounterEvidence, createTime);
 
+            // AdaptiveThoughtŒ^Entityƒ‚ƒfƒ‹‚Ìì¬
+            var adaptiveThoughtEntity = AdaptiveThoght.getAdaptiveThoughtEntity(createTime);
+
             // AutoThougtsŒ^Entityƒ‚ƒfƒ‹‚Ìì¬
             AutoThought.setSevenColumnsEntity(sevenColumnsModel
                     , evidenceEntity
+                    , adaptiveThoughtEntity
                     , AutoThoughtList
                     , MainThoughtIndex
                     , createTime);

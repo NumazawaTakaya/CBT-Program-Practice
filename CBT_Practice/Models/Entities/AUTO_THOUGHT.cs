@@ -15,7 +15,9 @@ public partial class AUTO_THOUGHT
 
     public DateTime CREATED_AT { get; set; }
 
-    public virtual ICollection<EMOTION> EMOTIONs { get; set; } = new List<EMOTION>();
+    public virtual ICollection<ADAPTIVE_THOUGHT> ADAPTIVE_THOUGHTs { get; set; } = new List<ADAPTIVE_THOUGHT>();
+
+    public virtual ICollection<AUTO_THOUGHT_EMOTION> AUTO_THOUGHT_EMOTIONs { get; set; } = new List<AUTO_THOUGHT_EMOTION>();
 
     public virtual ICollection<EVIDENCE> EVIDENCEs { get; set; } = new List<EVIDENCE>();
 
