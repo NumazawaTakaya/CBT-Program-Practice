@@ -14,4 +14,6 @@ public partial class AUTO_THOUGHT_EMOTION
     public int POINT { get; set; }
 
     public DateTime CREATED_AT { get; set; }
+
+    public virtual AUTO_THOUGHT AUTO_THOUGHTS { get; set; } = null!;
 }

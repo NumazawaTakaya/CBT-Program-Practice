@@ -73,11 +73,33 @@
     </div>
 
     <div class="button-section">
-        <button>一時保存</button>
+        <div></div>
+        <button class="btn-link temp-save-btn" type="button">一時保存</button>
         <button class="btn-link" type="submit">次へ</button>
+    </div>
+
+    <div id="modal" style="display:none">
+        <div class="modal-content">
+            <label>タイトル：</label>
+            <input type="text" asp-for="Title"/>
+            <br />
+            <div class="btn-area">
+                <button asp-page-handler="Save">保存</button>
+                <button type="button" class="cancel-btn">キャンセル</button>
+            </div>
+        </div>
     </div>
 </form>
 
 @section scripts {
+    <script src="~/js/sevenColumns.js"></script>
+    <script type="text/javascript">
+        $('.temp-save-btn').on('click', function(){
+            $('#modal').show();
+        });
 
+        $('.cancel-btn').on('click', function(){
+            $('#modal').hide();
+        });
+    </script>
 }
