@@ -25,6 +25,14 @@ namespace CBT_Practice.Models.Service
             {
                 UpdateSituation(session.Situation);
             }
+
+            // AUTO_THOUGHTを設定
+            if (session.AutoThoughtList != null)
+            {
+                // TODO: 主要な自動思考の変更に対応できるよう修正
+                var mainAutoThought = session.AutoThoughtList[session.MainThoughtIndex];
+
+            }
         }
 
         public void UpdateSituation(ViewModels.Situation vm)
@@ -40,7 +48,31 @@ namespace CBT_Practice.Models.Service
                 situation.PROPOSAL_OBJECT = vm.ProposalObject;
                 situation.APPROACH = vm.Approach;
                 situation.OTHER_INFO = vm.OtherBackgroundInfo;
-                situation.CREATED_AT = Now;
+                situation.UPDATED_AT = Now;
+            }
+        }
+
+        public void UpdateAutoThought(List<ViewModels.AutoThought> vmList, int mainThoughtIndex)
+        {
+            // TODO: 自動思考欄の追加に対応できるよう修正
+            AUTO_THOUGHT? autoThought = Root.AUTO_THOUGHTs.FirstOrDefault();
+            if(autoThought != null)
+            {
+            }
+        }
+
+        public void UpdateEvidence(ViewModels.Evidence vm)
+        {
+            EVIDENCE? evidence = Root.AUTO_THOUGHTs.FirstOrDefault().EVIDENCEs.FirstOrDefault();
+
+            // 対応するEVIDENCEが存在する場合の処理
+            if (evidence != null)
+            {
+                // UPDATE
+            }
+            else
+            {
+                // CREATE
             }
         }
 
