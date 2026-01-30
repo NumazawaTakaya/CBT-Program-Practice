@@ -1,13 +1,18 @@
+using CBT_Practice.Data;
 using CBT_Practice.Helpers;
+using CBT_Practice.Models.Service;
 using CBT_Practice.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace CBT_Practice.Pages.CBT.SevenColumns
 {
     public class Step05_AdaptiveThoughtsModel : PageModel
     {
+        private readonly AppDbContext _dbContext;
+
         [BindProperty]
         public AdaptiveThought AdaptiveThought { get; set; } = new();
 
@@ -30,6 +35,17 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             new SelectListItem { Value = "better", Text = "に越したことはないが" },
             new SelectListItem { Value = "maybe",  Text = "かもしれないが" }
         };
+
+        /// <summary>
+        /// 一時保存用タイトル
+        /// </summary>
+        [BindProperty]
+        public string? Title { get; set; }
+
+        public Step05_AdaptiveThoughtsModel(AppDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public void OnGet()
         {
@@ -70,9 +86,7 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
         public IActionResult OnPost()
         {
             // Session から取得
-            var sessionData =
-                HttpContext.Session.GetObject<CbtSession>("CbtSession")
-                ?? new();
+            var sessionData = HttpContext.Session.GetObject<CbtSession>("CbtSession") ?? new();
 
             // Step05 の内容を保存
             sessionData.AdaptiveThought = AdaptiveThought;
@@ -82,5 +96,23 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             return RedirectToPage("Step06_Result");
         }
 
+        /// <summary>
+        /// 一時保存ボタン押下時処理
+        /// </summary>
+        public async Task<IActionResult> OnPostSaveTemp()
+        {
+            // セッションの定義
+            var session = HttpContext.Session.GetObject<CbtSession>("CbtSession") ?? new();
+            session.AdaptiveThought = this.AdaptiveThought;
+            session.Title = this.Title;
+
+            // 保存内容の定義
+            var aggregate = new SevenColumnsService();
+            aggregate.CreateEntitiesFromSession(session);
+
+            // 保存処理を実施
+            await aggregate.CreateAsync(_dbContext);
+            return RedirectToPage("Index");
+        }
     }
 }

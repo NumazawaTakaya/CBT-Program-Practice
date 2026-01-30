@@ -75,10 +75,29 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             var session = HttpContext.Session.GetObject<CbtSession>("CbtSession");
             session.Title = this.Title;
 
-            // 保存内容の定義
+            // 保存内容の定義（完了フラグをON）
             var aggregate = new SevenColumnsService();
             aggregate.CreateEntitiesFromSession(session, isComplete:true);
             
+            // 保存処理を実施
+            await aggregate.CreateAsync(_dbContext);
+            return RedirectToPage("Index");
+        }
+
+
+        /// <summary>
+        /// 一時保存ボタン押下時処理
+        /// </summary>
+        public async Task<IActionResult> OnPostSaveTemp()
+        {
+            // セッションの定義
+            var session = HttpContext.Session.GetObject<CbtSession>("CbtSession") ?? new();
+            session.Title = this.Title;
+
+            // 保存内容の定義（完了フラグOFF）
+            var aggregate = new SevenColumnsService();
+            aggregate.CreateEntitiesFromSession(session);
+
             // 保存処理を実施
             await aggregate.CreateAsync(_dbContext);
             return RedirectToPage("Index");
