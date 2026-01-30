@@ -2,6 +2,7 @@
 using CBT_Practice.Models.Entities;
 using CBT_Practice.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 
 namespace CBT_Practice.Models.Service
 {
@@ -11,7 +12,9 @@ namespace CBT_Practice.Models.Service
 
         public SITUATION? SITUATION { get; private set; }
 
-        public List<AUTO_THOUGHT>? AUTO_THOUGHT_LIST { get; private set; } = new();
+        public List<AUTO_THOUGHT> AUTO_THOUGHT_LIST { get; private set; } = new();
+
+        public ADAPTIVE_THOUGHT ADAPTIVE_THOUGHT { get; private set; }
 
         public DateTime CreateTime { get; private set; }
 
@@ -28,6 +31,10 @@ namespace CBT_Practice.Models.Service
                 IS_COMPLETE = false,
                 IS_DELETE = false,
             };
+
+            SITUATION = new();
+            AUTO_THOUGHT_LIST = new();
+            ADAPTIVE_THOUGHT = new();
         }
 
         /// <summary>
@@ -41,12 +48,46 @@ namespace CBT_Practice.Models.Service
         /// <summary>
         /// セッションの内容を基にEntityクラスの内容を設定
         /// </summary>
-        public void CreateEntitiesFromSession(CbtSession session)
+        public void CreateEntitiesFromSession(CbtSession session, bool isComplete = false)
         {
+            // 編集状況を更新
+            Root.IS_COMPLETE = isComplete;
+
             // タイトルを設定
             if (session.Title != null) 
             { 
                 SetTitle(session.Title);
+            }
+
+            // SITUATIONを設定
+            if(session.Situation != null)
+            {
+                SetSituation(session.Situation);
+            }
+
+            // AUTO_THOUGHTを設定
+            if(session.AutoThoughtList != null) 
+            {
+                SetAutoThoughtList(session.AutoThoughtList, session.MainThoughtIndex);
+
+                // AUTO_THOUGHT_EMOTIONを設定
+                var mainEmotion = session.AutoThoughtList[session.MainThoughtIndex].EmotionList;
+
+                // EVIDENCEを設定
+                if (session.Evidence != null && session.CounterEvidence == null)
+                {
+                    SetEvidence(session.Evidence);
+                }
+                else if (session.Evidence != null && session.CounterEvidence != null)
+                {
+                    SetEvidence(session.Evidence, session.CounterEvidence);
+                }
+
+                // ADAPTIVE_THOUGHTを設定
+                if(session.AdaptiveThought != null)
+                {
+                    SetAdaptiveThought(session.AdaptiveThought);
+                }
             }
         }
 
@@ -55,7 +96,7 @@ namespace CBT_Practice.Models.Service
         /// </summary>
         public void SetSituation(ViewModels.Situation vm)
         {
-            var situation = new SITUATION
+            SITUATION = new SITUATION
             {
                 HAPPEND_TIME = vm.HappenedTime,
                 HAPPEND_TIME_DETAIL = vm.HappenedTimeDetail,
@@ -70,17 +111,18 @@ namespace CBT_Practice.Models.Service
                 SEVEN_COLUMNS = Root
             };
 
-            Root.SITUATIONs.Add(situation);
+            Root.SITUATIONs.Add(SITUATION);
         }
 
         /// <summary>
-        /// AUTO_THOUGH型Entityの作成
+        /// AUTO_THOUGHT型／AUTO_THOUGHT_EMOTION型Entityの作成
         /// </summary>
         public void SetAutoThoughtList(List<ViewModels.AutoThought> vmList
             , int mainThoughtIndex)
         {
             for (int i = 0; i < vmList.Count; i++) 
             {
+                // AUTO_THOUGHT型
                 var autoThoughtEntity = new AUTO_THOUGHT
                 {
                     AUTO_THOUGHT1 = vmList[i].Thought ?? "(未設定)",
@@ -88,28 +130,33 @@ namespace CBT_Practice.Models.Service
                     CREATED_AT = CreateTime,
                     SEVEN_COLUMNS = Root
                 };
+                AUTO_THOUGHT_LIST.Add(autoThoughtEntity);
+
+                // EMOTION型
+                SetAutoThoughtEmotionList(vmList[i], autoThoughtEntity);
+
+                // Rootとの紐づけ
+                Root.AUTO_THOUGHTs.Add(autoThoughtEntity);
+
             }
         }
 
         /// <summary>
         /// EMOTION型Entityの作成
         /// </summary>
-        public void SetEmotionEntityList(List<ViewModels.Emotion> vmList)
+        public void SetAutoThoughtEmotionList(ViewModels.AutoThought vm, AUTO_THOUGHT entity)
         {
-            var mainAutoThought = AUTO_THOUGHT_LIST.FirstOrDefault(at => at.IS_MAIN);
-            if (mainAutoThought == null) return;
-
-            foreach (var emotion in vmList)
+            foreach (var emotion in vm.EmotionList)
             {
                 var emotionEntity = new AUTO_THOUGHT_EMOTION
                 {
                     EMOTION = emotion.Name ?? "(未設定)",
                     POINT = emotion.Point,
                     CREATED_AT = CreateTime,
-                    AUTO_THOUGHTS = mainAutoThought
+                    AUTO_THOUGHTS = entity,
                 };
 
-                mainAutoThought.AUTO_THOUGHT_EMOTIONs.Add(emotionEntity);
+                entity.AUTO_THOUGHT_EMOTIONs.Add(emotionEntity);
             }
         }
 
@@ -155,14 +202,15 @@ namespace CBT_Practice.Models.Service
         }
 
         /// <summary>
-        /// ADAPTIVE_THOUGHT型Entityの作成
+        /// ADAPTIVE_THOUGHT／ADAPTIVE_THOUGHT_EMOTION型Entityの作成
         /// </summary>
         public void SetAdaptiveThought(ViewModels.AdaptiveThought vm)
         {
             var mainAutoThought = AUTO_THOUGHT_LIST.FirstOrDefault(at => at.IS_MAIN);
             if (mainAutoThought == null) return;
 
-            var adaptiveThought = new ADAPTIVE_THOUGHT
+            // ADAPTIVE_THOUGHT型
+            ADAPTIVE_THOUGHT = new ADAPTIVE_THOUGHT
             {
                 BEFORE_THOUGHT = vm.BeforeThought ?? "(未設定)",
                 CONJUNCTION_THOUGHT = vm.Conjunction ?? "(未設定)",
@@ -170,7 +218,28 @@ namespace CBT_Practice.Models.Service
                 CREATED_AT = CreateTime,
                 THOUGHTS = mainAutoThought
             };
-            mainAutoThought.ADAPTIVE_THOUGHTs.Add(adaptiveThought);
+            mainAutoThought.ADAPTIVE_THOUGHTs.Add(ADAPTIVE_THOUGHT);
+
+            SetAdaptiveThoughtEmotionList(vm);
+        }
+
+        /// <summary>
+        /// ADAPTIVE_THOUGHT_EMOTION型Entityの作成
+        /// </summary>
+        public void SetAdaptiveThoughtEmotionList(ViewModels.AdaptiveThought vm)
+        {
+            foreach(var emotion in vm.EmotionList)
+            {
+                var emotionEntity = new ADAPTIVE_THOUGHT_EMOTION
+                {
+                    EMOTION = emotion.Name ?? "(未設定)",
+                    POINT = emotion.Point,
+                    CREATED_AT = CreateTime,
+                    ADAPTIVE_THOUGHTS = ADAPTIVE_THOUGHT
+                };
+
+                ADAPTIVE_THOUGHT.ADAPTIVE_THOUGHT_EMOTIONs.Add(emotionEntity);
+            }
         }
 
         /// <summary>
