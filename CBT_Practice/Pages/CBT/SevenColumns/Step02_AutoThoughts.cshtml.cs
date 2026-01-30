@@ -1,4 +1,6 @@
+using CBT_Practice.Data;
 using CBT_Practice.Helpers;
+using CBT_Practice.Models.Service;
 using CBT_Practice.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,11 +9,19 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
 {
     public class Step02_AutoThoughtsModel : PageModel
     {
+        private readonly AppDbContext _dbContext;
+
         [BindProperty]
         public List<AutoThought> AutoThoughtList { get; set; } = new ();
 
         [BindProperty]
         public int MainThoughtIndex { get; set; } = 0;
+
+        /// <summary>
+        /// 一時保存用タイトル
+        /// </summary>
+        [BindProperty]
+        public string? Title { get; set; }
 
         /// <summary>
         /// 自動思考部の初期表示件数
@@ -27,6 +37,11 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
         /// 自動思考管理用Index
         /// </summary>
         public int AutoThoughtIndex { get; set; } = 1;
+
+        public Step02_AutoThoughtsModel(AppDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public void OnGet()
         {
@@ -71,6 +86,26 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             // Session に保存
             HttpContext.Session.SetObject("CbtSession", sessionData);
             return RedirectToPage("Step03_Evidence");
+        }
+
+        /// <summary>
+        /// 一時保存ボタン押下時処理
+        /// </summary>
+        public async Task<IActionResult> OnPostSave()
+        {
+            // セッションの定義
+            var session = HttpContext.Session.GetObject<CbtSession>("CbtSession") ?? new();
+            session.AutoThoughtList = this.AutoThoughtList;
+            session.MainThoughtIndex = this.MainThoughtIndex;
+            session.Title = this.Title;
+
+            // 保存内容の定義
+            var aggregate = new SevenColumnsService();
+            aggregate.CreateEntitiesFromSession(session);
+
+            // 保存処理を実施
+            await aggregate.CreateAsync(_dbContext);
+            return RedirectToPage("Index");
         }
     }
 }

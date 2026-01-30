@@ -81,7 +81,7 @@
     <div id="modal" style="display:none">
         <div class="modal-content">
             <label>タイトル：</label>
-            <input type="text" asp-for="Title"/>
+            <input type="text" asp-for="Title" />
             <br />
             <div class="btn-area">
                 <button asp-page-handler="Save">保存</button>
@@ -93,13 +93,4 @@
 
 @section scripts {
     <script src="~/js/sevenColumns.js"></script>
-    <script type="text/javascript">
-        $('.temp-save-btn').on('click', function(){
-            $('#modal').show();
-        });
-
-        $('.cancel-btn').on('click', function(){
-            $('#modal').hide();
-        });
-    </script>
 }

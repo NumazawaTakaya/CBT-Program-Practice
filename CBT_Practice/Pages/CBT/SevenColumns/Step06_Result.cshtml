@@ -132,11 +132,13 @@
     </div>
     <div class="button-section">
         <a asp-page="Step05_AdaptiveThoughts" class="btn-link">前の画面に戻る</a>
-        <button type="submit">保存</button>
+        <button class="btn-link temp-save-btn" asp-page-handler="SaveTemp">一時保存</button>
+        <button class="btn-link" type="submit">保存</button>
     </div>
 </form>
 
 @section scripts{
+    <script src="~/js/sevenColumns.js"></script>
     <script type="text/javascript">
         $(function(){
 

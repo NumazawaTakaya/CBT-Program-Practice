@@ -1,12 +1,17 @@
+using CBT_Practice.Data;
 using CBT_Practice.Helpers;
+using CBT_Practice.Models.Service;
 using CBT_Practice.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace CBT_Practice.Pages.CBT.SevenColumns
 {
     public class Step01_SituationModel : PageModel
     {
+        private readonly AppDbContext _dbContext;
+
         [BindProperty]
         public Situation Situation { get; set; } = new ();
 
@@ -15,6 +20,11 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
         /// </summary>
         [BindProperty]
         public string? Title { get; set; }
+
+        public Step01_SituationModel(AppDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         /// <summary>
         /// 画面読み込み時処理
@@ -34,12 +44,8 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
         /// </summary>
         public IActionResult OnPost()
         {
-            // Session から取得 or 新規作成
-            var sessionData =
-                HttpContext.Session.GetObject<CbtSession>("CbtSession")
-                ?? new CbtSession();
-
-            // Step01 の内容を保存
+            // セッションの定義
+            var sessionData = HttpContext.Session.GetObject<CbtSession>("CbtSession") ?? new();
             sessionData.Situation = Situation;
 
             // Session に保存
@@ -48,12 +54,21 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
         }
 
         /// <summary>
-        /// 一時保存ボタン押下時
+        /// 一時保存ボタン押下時処理
         /// </summary>
-        public IActionResult OnPostSave()
+        public async Task<IActionResult> OnPostSave()
         {
+            // セッションの定義
+            var session = HttpContext.Session.GetObject<CbtSession>("CbtSession") ?? new();
+            session.Situation = this.Situation;
+            session.Title = this.Title;
 
-            var title = Title;
+            // 保存内容の定義
+            var aggregate = new SevenColumnsService();
+            aggregate.CreateEntitiesFromSession(session);
+
+            // 保存処理を実施
+            await aggregate.CreateAsync(_dbContext);
             return RedirectToPage("Index");
         }
     }
