@@ -4,6 +4,7 @@
     ViewData["Title"] = "７つのコラム 新規作成";
 }
 <form method="post">
+    <input type="hidden" asp-for="SevenColumnsId" />
     <div class="main-title">
         <h1>７つのコラム　自動思考の発生状況</h1>
     </div>
@@ -84,7 +85,7 @@
             <input type="text" asp-for="Title" />
             <br />
             <div class="btn-area">
-                <button asp-page-handler="Save">保存</button>
+                <button asp-page-handler="TempSave">保存</button>
                 <button type="button" class="cancel-btn">キャンセル</button>
             </div>
         </div>

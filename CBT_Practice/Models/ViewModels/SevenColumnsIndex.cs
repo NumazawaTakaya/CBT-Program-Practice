@@ -30,6 +30,11 @@ namespace CBT_Practice.Models.ViewModels
         /// </summary>
         public bool IsCompleted { get; set; }
 
+        /// <summary>
+        /// （hidden)対象の主キー
+        /// </summary>
+        public long PrimaryKey { get; set; }
+
 
         public static List<SevenColumnsIndex> getSevenColumnsList(AppDbContext context)
         {
@@ -37,6 +42,9 @@ namespace CBT_Practice.Models.ViewModels
                  .Where(sc => !sc.IS_DELETE)
                  .Select(sc => new SevenColumnsIndex
                  {
+                     // 対象の主キーを取得
+                     PrimaryKey = sc.ID,
+
                      // タイトルを取得（Step06_Result.cshtml にて入力）
                      SevenColumnsTitle = string.IsNullOrEmpty(sc.TITLE)
                         ? "未設定" : sc.TITLE,

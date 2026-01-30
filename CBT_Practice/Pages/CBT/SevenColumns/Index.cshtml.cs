@@ -20,5 +20,13 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
         {
             SevenColumnsList = SevenColumnsIndex.getSevenColumnsList(_dbContext);
         }
+
+        public async Task<IActionResult> OnPostEdit(long sevenColumnsId) 
+        {
+            return RedirectToPage(
+                "Step01_Situation",
+                new { sevenColumnsId }
+            );
+        }
     }
 }

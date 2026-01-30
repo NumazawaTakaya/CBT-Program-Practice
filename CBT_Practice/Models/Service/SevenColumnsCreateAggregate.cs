@@ -6,28 +6,22 @@ using System.Drawing;
 
 namespace CBT_Practice.Models.Service
 {
-    public class SevenColumnsService
+    public class SevenColumnsCreateAggregate : SevenColumnsBaseAggregate
     {
-        public SEVEN_COLUMN Root {  get; private set; }
-
         public SITUATION? SITUATION { get; private set; }
 
         public List<AUTO_THOUGHT> AUTO_THOUGHT_LIST { get; private set; } = new();
 
         public ADAPTIVE_THOUGHT ADAPTIVE_THOUGHT { get; private set; }
 
-        public DateTime CreateTime { get; private set; }
-
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public SevenColumnsService()
+        public SevenColumnsCreateAggregate()
         {
-            CreateTime = DateTime.Now;
-
             Root = new SEVEN_COLUMN
             {
-                CREATED_DAY = CreateTime,
+                CREATED_DAY = Now,
                 IS_COMPLETE = false,
                 IS_DELETE = false,
             };
@@ -38,25 +32,17 @@ namespace CBT_Practice.Models.Service
         }
 
         /// <summary>
-        /// タイトル設定
-        /// </summary>
-        public void SetTitle(string title)
-        {
-            Root.TITLE = title;
-        }
-
-        /// <summary>
         /// セッションの内容を基にEntityクラスの内容を設定
         /// </summary>
-        public void CreateEntitiesFromSession(CbtSession session, bool isComplete = false)
+        public void ApplyFromSession(CbtSession session, bool isComplete = false)
         {
             // 編集状況を更新
             Root.IS_COMPLETE = isComplete;
 
             // タイトルを設定
             if (session.Title != null) 
-            { 
-                SetTitle(session.Title);
+            {
+                ApplyTitle(session.Title);
             }
 
             // SITUATIONを設定
@@ -106,7 +92,7 @@ namespace CBT_Practice.Models.Service
                 PROPOSAL_OBJECT = vm.ProposalObject,
                 APPROACH = vm.Approach,
                 OTHER_INFO = vm.OtherBackgroundInfo,
-                CREATED_AT = CreateTime,
+                CREATED_AT = Now,
 
                 SEVEN_COLUMNS = Root
             };
@@ -127,7 +113,7 @@ namespace CBT_Practice.Models.Service
                 {
                     AUTO_THOUGHT1 = vmList[i].Thought ?? "(未設定)",
                     IS_MAIN = i == mainThoughtIndex,
-                    CREATED_AT = CreateTime,
+                    CREATED_AT = Now,
                     SEVEN_COLUMNS = Root
                 };
                 AUTO_THOUGHT_LIST.Add(autoThoughtEntity);
@@ -152,7 +138,7 @@ namespace CBT_Practice.Models.Service
                 {
                     EMOTION = emotion.Name ?? "(未設定)",
                     POINT = emotion.Point,
-                    CREATED_AT = CreateTime,
+                    CREATED_AT = Now,
                     AUTO_THOUGHTS = entity,
                 };
 
@@ -174,7 +160,7 @@ namespace CBT_Practice.Models.Service
                 EVIDENCE1 = vm1.AutoThoughtEvidence ?? "(未設定)",
                 INSIDE_BELIEF = vm1.InsideBelief,
                 CORE_BELIEF = vm1.CoreBelief,
-                CREATED_AT = CreateTime,
+                CREATED_AT = Now,
                 THOUGHTS = mainAutoThought
             };
             mainAutoThought.EVIDENCEs.Add(evidence);
@@ -195,7 +181,7 @@ namespace CBT_Practice.Models.Service
                 INSIDE_BELIEF = vm1.InsideBelief,
                 CORE_BELIEF = vm1.CoreBelief,
                 COUNTER_EVIDENCE = vm2.Counter,
-                CREATED_AT = CreateTime,
+                CREATED_AT = Now,
                 THOUGHTS = mainAutoThought
             };
             mainAutoThought.EVIDENCEs.Add(evidence);
@@ -215,7 +201,7 @@ namespace CBT_Practice.Models.Service
                 BEFORE_THOUGHT = vm.BeforeThought ?? "(未設定)",
                 CONJUNCTION_THOUGHT = vm.Conjunction ?? "(未設定)",
                 AFTER_THOUGHT = vm.AfterThought ?? "(未設定)",
-                CREATED_AT = CreateTime,
+                CREATED_AT = Now,
                 THOUGHTS = mainAutoThought
             };
             mainAutoThought.ADAPTIVE_THOUGHTs.Add(ADAPTIVE_THOUGHT);
@@ -234,7 +220,7 @@ namespace CBT_Practice.Models.Service
                 {
                     EMOTION = emotion.Name ?? "(未設定)",
                     POINT = emotion.Point,
-                    CREATED_AT = CreateTime,
+                    CREATED_AT = Now,
                     ADAPTIVE_THOUGHTS = ADAPTIVE_THOUGHT
                 };
 

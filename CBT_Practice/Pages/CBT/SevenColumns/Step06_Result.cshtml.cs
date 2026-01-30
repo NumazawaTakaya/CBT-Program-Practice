@@ -76,8 +76,8 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             session.Title = this.Title;
 
             // 保存内容の定義（完了フラグをON）
-            var aggregate = new SevenColumnsService();
-            aggregate.CreateEntitiesFromSession(session, isComplete:true);
+            var aggregate = new SevenColumnsCreateAggregate();
+            aggregate.ApplyFromSession(session, isComplete:true);
             
             // 保存処理を実施
             await aggregate.CreateAsync(_dbContext);
@@ -95,8 +95,8 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             session.Title = this.Title;
 
             // 保存内容の定義（完了フラグOFF）
-            var aggregate = new SevenColumnsService();
-            aggregate.CreateEntitiesFromSession(session);
+            var aggregate = new SevenColumnsCreateAggregate();
+            aggregate.ApplyFromSession(session);
 
             // 保存処理を実施
             await aggregate.CreateAsync(_dbContext);
