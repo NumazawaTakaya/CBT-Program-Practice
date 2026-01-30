@@ -71,41 +71,16 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
         /// <returns></returns>
         public async Task<IActionResult> OnPost()
         {
-            // セッションの情報を画面Modelに定義
-            GetSession();            
+            // セッションの定義
+            var session = HttpContext.Session.GetObject<CbtSession>("CbtSession");
+            session.Title = this.Title;
+
+            // 保存内容の定義
+            var aggregate = new SevenColumnsService();
+            aggregate.CreateEntitiesFromSession(session, isComplete:true);
             
-            // 作成日時を定義
-            DateTime createTime = DateTime.Now;
-
-            // SevenColumns型Entityモデルを作成
-            var sevenColumnsModel = new SEVEN_COLUMN
-            {
-                TITLE = Title,
-                IS_COMPLETE = true,
-                CREATED_DAY = createTime,
-                IS_DELETE = false
-            };
-
-            // Situation型Entityモデルの作成
-            Situation?.setSevenColumnsEntity(sevenColumnsModel, createTime);
-
-            // Evidence型Entityモデルの作成
-            var evidenceEntity = Evidence.getEvidenceEntity(CounterEvidence, createTime);
-
-            // AdaptiveThought型Entityモデルの作成
-            var adaptiveThoughtEntity = AdaptiveThoght.getAdaptiveThoughtEntity(createTime);
-
-            // AutoThougts型Entityモデルの作成
-            AutoThought.setSevenColumnsEntity(sevenColumnsModel
-                    , evidenceEntity
-                    , adaptiveThoughtEntity
-                    , AutoThoughtList
-                    , MainThoughtIndex
-                    , createTime);
-
-            // DBの更新
-            await SevenColumnsService.CreateAsync(_dbContext, sevenColumnsModel);
-
+            // 保存処理を実施
+            await aggregate.CreateAsync(_dbContext);
             return RedirectToPage("Index");
         }
 
