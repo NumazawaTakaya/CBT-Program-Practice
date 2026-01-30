@@ -45,25 +45,19 @@ namespace CBT_Practice.Models.ViewModels
         public string? OtherBackgroundInfo { get; set; }
 
 
-        public void setSevenColumnsEntity(SEVEN_COLUMN sevenColumns, DateTime createTime)
+        public Situation SetViewModel(SITUATION situation)
         {
-            var situationModel = new SITUATION
+            return new Situation
             {
-                HAPPEND_TIME = HappenedTime,
-                HAPPEND_TIME_DETAIL = HappenedTimeDetail,
-                HAPPEND_PLACE = HappenedPlace,
-                CHARACTER_FROM = CharacterFrom,
-                CHARACTER_TO = CharacterTo,
-                PROPOSAL_OBJECT = ProposalObject,
-                APPROACH = Approach,
-                OTHER_INFO = OtherBackgroundInfo,
-                CREATED_AT = createTime,
-
-                SEVEN_COLUMNS = sevenColumns
+                HappenedTime = situation.HAPPEND_TIME ?? DateTime.Now,
+                HappenedTimeDetail = situation.HAPPEND_TIME_DETAIL,
+                HappenedPlace = situation.HAPPEND_PLACE,
+                CharacterFrom = situation.CHARACTER_FROM,
+                CharacterTo = situation.CHARACTER_TO,
+                ProposalObject = situation.PROPOSAL_OBJECT,
+                Approach = situation.APPROACH,
+                OtherBackgroundInfo = situation.OTHER_INFO
             };
-
-            // SevenColumnsにSituationを紐づけ
-            sevenColumns.SITUATIONs.Add(situationModel);
         }
     }
 }

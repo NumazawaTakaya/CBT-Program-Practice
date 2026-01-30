@@ -73,8 +73,8 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             session.Title = this.Title;
 
             // •Û‘¶“à—e‚Ì’è‹`
-            var aggregate = new SevenColumnsService();
-            aggregate.CreateEntitiesFromSession(session);
+            var aggregate = new SevenColumnsCreateAggregate();
+            aggregate.ApplyFromSession(session);
 
             // •Û‘¶ˆ—‚ğÀ{
             await aggregate.CreateAsync(_dbContext);

@@ -8,6 +8,11 @@
         public string? Title {  get; set; }
 
         /// <summary>
+        /// 編集状態フラグ
+        /// </summary>
+        public bool IsEdit { get; set; }
+
+        /// <summary>
         /// Step01_Situation.cshtmlの入力項目
         /// </summary>
         public Situation? Situation { get; set; }

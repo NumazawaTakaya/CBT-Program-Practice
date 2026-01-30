@@ -19,39 +19,46 @@
         </div>
     </div>
 
-    <div class="table-section">
-        <table>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>題名</th>
-                    <th>自動思考</th>
-                    <th>主な感情</th>
-                    <th>発生日</th>
-                    <th>状況</th>
-                    <th colspan="2"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < listCount; i++)
-                {
-                    var target = Model.SevenColumnsList[i];
+    <form method="post">
+        <div class="table-section">
+            <table>
+                <thead>
                     <tr>
-                        <td>@(i + 1)</td>
-                        <td>@target.SevenColumnsTitle</td>
-                        <td>@target.MainAutoThough</td>
-                        <td>@target.MainEmotion</td>
-                        <td>@target.HappenedTime?.ToString("yyyy年MM月dd日")</td>
-                        <td>@(target.IsCompleted ? "〇" : "ー")</td>
-                        <td>@if (target.IsCompleted)
-                            {
-                                <button>確認</button>
-                            }
-                        </td>
-                        <td><button>編集</button></td>
+                        <th>No.</th>
+                        <th>題名</th>
+                        <th>自動思考</th>
+                        <th>主な感情</th>
+                        <th>発生日</th>
+                        <th>状況</th>
+                        <th colspan="2"></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < listCount; i++)
+                    {
+                        var target = Model.SevenColumnsList[i];
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>@target.SevenColumnsTitle</td>
+                            <td>@target.MainAutoThough</td>
+                            <td>@target.MainEmotion</td>
+                            <td>@target.HappenedTime?.ToString("yyyy年MM月dd日")</td>
+                            <td>@(target.IsCompleted ? "〇" : "ー")</td>
+                            <td>@if (target.IsCompleted)
+                                {
+                                    <button>確認</button>
+                                }
+                            </td>
+                            <td>
+                                <a asp-page="Step01_Situation"
+                                   asp-route-sevenColumnsId="@target.PrimaryKey">
+                                   編集
+                                </a>                                
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </form>
 </div>

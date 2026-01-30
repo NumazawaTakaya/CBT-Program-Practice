@@ -20,17 +20,15 @@ namespace CBT_Practice.Models.ViewModels
         public string? CoreBelief { get; set; }
 
         /// <summary>
-        /// Evidence型Entityモデルの作成
+        /// VMの作成
         /// </summary>
-        public EVIDENCE getEvidenceEntity(CounterEvidence counterEvidence, DateTime createTime)
+        public static Evidence GetEvidence(EVIDENCE entity)
         {
-            return new EVIDENCE
+            return new Evidence
             {
-                EVIDENCE1 = AutoThoughtEvidence,
-                INSIDE_BELIEF = InsideBelief,
-                CORE_BELIEF = CoreBelief,
-                COUNTER_EVIDENCE = counterEvidence.Counter,
-                CREATED_AT = createTime
+                AutoThoughtEvidence = entity.EVIDENCE1,
+                InsideBelief = entity.INSIDE_BELIEF,
+                CoreBelief = entity.CORE_BELIEF,
             };
         }
     }

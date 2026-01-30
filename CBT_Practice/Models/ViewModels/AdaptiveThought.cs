@@ -22,41 +22,21 @@ namespace CBT_Practice.Models.ViewModels
 
         public List<Emotion> EmotionList { get; set; } = new();
 
-        /// <summary>
-        /// 入力済み適応的思考のリスト化
-        /// </summary>
-        public ADAPTIVE_THOUGHT getAdaptiveThoughtEntity(DateTime createTime)
+        public static AdaptiveThought GetAdaptiveThought(ADAPTIVE_THOUGHT entity)
         {
-            var adaptiveThoughtEntity = new ADAPTIVE_THOUGHT
+            var adaptiveThoughtVm = new AdaptiveThought();
+            adaptiveThoughtVm.BeforeThought = entity.BEFORE_THOUGHT;
+            adaptiveThoughtVm.Conjunction = entity.CONJUNCTION_THOUGHT;
+            adaptiveThoughtVm.AfterThought = entity.AFTER_THOUGHT;
+
+            var emotionVmList = new List<Emotion>();
+            foreach(var emotionEntity in entity.ADAPTIVE_THOUGHT_EMOTIONs)
             {
-                BEFORE_THOUGHT = BeforeThought,
-                CONJUNCTION_THOUGHT = Conjunction,
-                AFTER_THOUGHT = AfterThought,
-                CREATED_AT = createTime
-            };
-
-            setEmotionEntityList(adaptiveThoughtEntity, createTime);
-            
-            return adaptiveThoughtEntity;
-        }
-
-        /// <summary>
-        /// 対応する感情リストのEntity化
-        /// </summary>
-        private void setEmotionEntityList(ADAPTIVE_THOUGHT adaptiveThoughtEntity, DateTime createTime)
-        {
-            foreach (var emotion in EmotionList)
-            {
-                var emotionEntity = new ADAPTIVE_THOUGHT_EMOTION
-                {
-                    EMOTION = emotion.Name,
-                    POINT = emotion.Point,
-                    CREATED_AT = createTime,
-                    ADAPTIVE_THOUGHTS = adaptiveThoughtEntity,
-                };
-
-                adaptiveThoughtEntity.ADAPTIVE_THOUGHT_EMOTIONs.Add(emotionEntity);
+                emotionVmList.Add(Emotion.GetEmotion(emotionEntity));
             }
+            adaptiveThoughtVm.EmotionList = emotionVmList;
+
+            return adaptiveThoughtVm;
         }
     }
 }
