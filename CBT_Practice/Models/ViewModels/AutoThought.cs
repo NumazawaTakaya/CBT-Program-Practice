@@ -5,7 +5,12 @@ namespace CBT_Practice.Models.ViewModels
     public class AutoThought
     {       
         /// <summary>
-        /// 自動思考
+        /// 自動思考のID
+        /// </summary>
+        public int? Id { get; set; }
+        
+        /// <summary>
+        /// 自動思考の本体
         /// </summary>
         public string? Thought { get; set; }
 

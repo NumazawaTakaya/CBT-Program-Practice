@@ -4,6 +4,7 @@ using CBT_Practice.Models.Service;
 using CBT_Practice.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace CBT_Practice.Pages.CBT.SevenColumns
 {
@@ -16,6 +17,9 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
 
         [BindProperty]
         public int MainThoughtIndex { get; set; } = 0;
+
+        [BindProperty(SupportsGet = true)]
+        public long? SevenColumnsId { get; set; }
 
         /// <summary>
         /// ˆê•Û‘¶—pƒ^ƒCƒgƒ‹
@@ -99,13 +103,29 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             session.MainThoughtIndex = this.MainThoughtIndex;
             session.Title = this.Title;
 
-            // •Û‘¶“à—e‚Ì’è‹`
-            var aggregate = new SevenColumnsCreateAggregate();
-            aggregate.ApplyFromSession(session);
+            if (session.IsEdit) 
+            {
+                var root = _dbContext.SEVEN_COLUMNs
+                    .Include(x => x.SITUATIONs)
+                    .Include(x => x.AUTO_THOUGHTs)
+                    .FirstOrDefault(x => x.ID == SevenColumnsId);
 
-            // •Û‘¶ˆ—‚ğÀ{
-            await aggregate.CreateAsync(_dbContext);
-            return RedirectToPage("Index");
+                if (root != null)
+                {
+                    // XVˆ—‚ğÀ{
+                    var updateAggregate = new SevenColumnsUpdateAggregate(root);
+                    updateAggregate.ApplyFromSession(session);
+                    await updateAggregate.UpdateAsync(_dbContext);
+                }
+            }
+            else
+            {
+                // “o˜^ˆ—‚ğÀ{
+                var createAggregate = new SevenColumnsCreateAggregate();
+                createAggregate.ApplyFromSession(session);
+                await createAggregate.CreateAsync(_dbContext);
+            }
+                return RedirectToPage("Index");
         }
     }
 }
