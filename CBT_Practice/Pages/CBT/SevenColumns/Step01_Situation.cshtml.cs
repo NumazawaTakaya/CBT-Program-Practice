@@ -84,7 +84,10 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
                         {
                             sessionData.AdaptiveThought = AdaptiveThought.GetAdaptiveThought(adaptiveThoughtEntity);
                         }
+
+                        autoThoughtList.Add(autoThoughtModel);
                     }
+                    sessionData.AutoThoughtList = autoThoughtList;
                 }
 
                 // Žæ“¾Œ‹‰Ê‚ð•Û‘¶

@@ -29,9 +29,7 @@ namespace CBT_Practice.Models.Service
             // AUTO_THOUGHTを設定
             if (session.AutoThoughtList != null)
             {
-                // TODO: 主要な自動思考の変更に対応できるよう修正
-                var mainAutoThought = session.AutoThoughtList[session.MainThoughtIndex];
-
+                UpdateAutoThoughtList(session.AutoThoughtList, session.MainThoughtIndex);
             }
         }
 
@@ -52,13 +50,21 @@ namespace CBT_Practice.Models.Service
             }
         }
 
-        public void UpdateAutoThought(List<ViewModels.AutoThought> vmList, int mainThoughtIndex)
+        public void UpdateAutoThoughtList(List<ViewModels.AutoThought> vmList, int mainThoughtIndex)
         {
-            // TODO: 自動思考欄の追加に対応できるよう修正
-            AUTO_THOUGHT? autoThought = Root.AUTO_THOUGHTs.FirstOrDefault();
-            if(autoThought != null)
-            {
-            }
+            // 既存自動思考を辞書化
+            var existing = Root.AUTO_THOUGHTs.ToDictionary(x => x.ID);
+
+            // 画面側ID一覧
+            var vmIds = vmList
+                .Where(x => x.Id.HasValue)
+                .Select(x => x.Id.Value)
+                .ToList();
+        }
+
+        public void UpdateAutoThought(ViewModels.AutoThought vm)
+        {
+
         }
 
         public void UpdateEvidence(ViewModels.Evidence vm)
@@ -77,7 +83,7 @@ namespace CBT_Practice.Models.Service
         }
 
         /// <summary>
-        /// SEVEN_COLUMNSのCREATE処理を実行（ナビゲーションプロパティを利用）
+        /// SEVEN_COLUMNSのUPDATE処理を実行（ナビゲーションプロパティを利用）
         /// </summary>
         public async Task UpdateAsync(AppDbContext dbContext)
         {
