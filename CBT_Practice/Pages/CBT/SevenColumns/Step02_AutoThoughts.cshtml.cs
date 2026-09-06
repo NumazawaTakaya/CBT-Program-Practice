@@ -54,6 +54,7 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             if (sessionData?.AutoThoughtList != null)
             {
                 // セッションデータを画面Modelに格納
+                SevenColumnsId = sessionData.SevensColumnsID;
                 AutoThoughtList = sessionData.AutoThoughtList;
                 MainThoughtIndex = sessionData.MainThoughtIndex;
 
@@ -106,16 +107,21 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
             if (session.IsEdit) 
             {
                 var root = _dbContext.SEVEN_COLUMNs
-                    .Include(x => x.SITUATIONs)
-                    .Include(x => x.AUTO_THOUGHTs)
-                    .FirstOrDefault(x => x.ID == SevenColumnsId);
+                .Include(x => x.SITUATIONs)
+                .Include(x => x.AUTO_THOUGHTs)
+                    .ThenInclude(x => x.AUTO_THOUGHT_EMOTIONs)
+                .Include(x => x.AUTO_THOUGHTs)
+                    .ThenInclude(x => x.EVIDENCEs)
+                .Include(x => x.AUTO_THOUGHTs)
+                    .ThenInclude(x => x.ADAPTIVE_THOUGHTs)
+                    .ThenInclude(x => x.ADAPTIVE_THOUGHT_EMOTIONs)
+                .FirstOrDefault(x => x.ID == SevenColumnsId);
 
                 if (root != null)
                 {
                     // 更新処理を実施
                     var updateAggregate = new SevenColumnsUpdateAggregate(root);
-                    updateAggregate.ApplyFromSession(session);
-                    await updateAggregate.UpdateAsync(_dbContext);
+                    await updateAggregate.UpdateAsync(_dbContext, session);
                 }
             }
             else

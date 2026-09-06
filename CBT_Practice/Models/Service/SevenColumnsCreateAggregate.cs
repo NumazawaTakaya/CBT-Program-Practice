@@ -31,6 +31,15 @@ namespace CBT_Practice.Models.Service
             ADAPTIVE_THOUGHT = new();
         }
 
+        public SevenColumnsCreateAggregate(SEVEN_COLUMN root)
+        {
+            Root = root;
+
+            SITUATION = new();
+            AUTO_THOUGHT_LIST = new();
+            ADAPTIVE_THOUGHT = new();
+        }
+
         /// <summary>
         /// セッションの内容を基にEntityクラスの内容を設定
         /// </summary>

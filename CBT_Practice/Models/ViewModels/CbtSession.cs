@@ -13,6 +13,11 @@
         public bool IsEdit { get; set; }
 
         /// <summary>
+        /// 7つのコラムの管理用ID
+        /// </summary>
+        public long? SevensColumnsID { get; set; }
+
+        /// <summary>
         /// Step01_Situation.cshtmlの入力項目
         /// </summary>
         public Situation? Situation { get; set; }

@@ -108,6 +108,7 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
         {
             // セッションの定義
             var sessionData = HttpContext.Session.GetObject<CbtSession>("CbtSession") ?? new();
+            sessionData.SevensColumnsID = SevenColumnsId;
             sessionData.Situation = Situation;
 
             // Session に保存
@@ -137,8 +138,7 @@ namespace CBT_Practice.Pages.CBT.SevenColumns
                 {
                     // 更新処理を実施
                     var updateAggregate = new SevenColumnsUpdateAggregate(root);
-                    updateAggregate.ApplyFromSession(session);
-                    await updateAggregate.UpdateAsync(_dbContext);
+                    await updateAggregate.UpdateAsync(_dbContext, session);
                 }
             }
             else
